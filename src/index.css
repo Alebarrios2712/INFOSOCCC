@@ -1,15 +1,26 @@
 
 :root {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #254653;
-  background: #FFF9F2;
+  font-family: 'Inter', Arial, sans-serif;
+  color: #24323D;
+  background: #FFF8F3;
 
-  /* Paleta de colores */
-  --turquesa: #50B4B0;
-  --amarillo: #FFD66D;
-  --azul-petroleo: #254653;
-  --coral: #F4786B;
-  --blanco-calido: #FFF9F2;
+  /* Nueva identidad visual INFOSOC */
+  --coral: #FF7A59;
+  --azul: #5B8DEF;
+  --verde-menta: #6DD3A0;
+  --crema: #FFF8F3;
+  --texto-principal: #24323D;
+  --texto-secundario: #6B7A86;
+
+  /* Colores complementarios */
+  --coral-oscuro: #B83E25;
+  --blanco: #FFFFFF;
+
+  /* Compatibilidad con estilos anteriores */
+  --turquesa: var(--verde-menta);
+  --amarillo: var(--azul);
+  --azul-petroleo: var(--texto-principal);
+  --blanco-calido: var(--crema);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
