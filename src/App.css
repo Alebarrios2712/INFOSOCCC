@@ -973,3 +973,415 @@ body {
     transform: none;
   }
 }
+
+/* =====================================
+   NAVEGACIÓN ENTRE PÁGINAS
+===================================== */
+
+.logo-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.navbar nav button {
+  background: transparent;
+  border: none;
+  padding: 10px 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #493832;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navbar nav button:hover,
+.navbar nav button.nav-active {
+  color: #C34E3C;
+}
+
+.navbar button:focus-visible,
+.card-link:focus-visible,
+.back-link:focus-visible {
+  outline: 3px solid #5B8DEF;
+  outline-offset: 4px;
+}
+
+button.card-link {
+  margin-top: auto;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* =====================================
+   PÁGINAS INFORMATIVAS
+===================================== */
+
+.info-page {
+  min-height: 85vh;
+  background: linear-gradient(
+    160deg,
+    #FFF1E9 0%,
+    #FFF9F5 52%,
+    #F0F3FF 100%
+  );
+  padding: 55px 8% 90px;
+}
+
+.info-conductas {
+  background: linear-gradient(
+    160deg,
+    #EAF6F1 0%,
+    #FFFAF6 55%,
+    #F0F4FF 100%
+  );
+}
+
+.info-alertas {
+  background: linear-gradient(
+    160deg,
+    #F2EEFF 0%,
+    #FFF9F6 55%,
+    #FFF0EA 100%
+  );
+}
+
+.info-container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* BOTÓN PARA VOLVER */
+
+.back-link {
+  border: none;
+  background: transparent;
+  color: #B74632;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 0;
+  margin-bottom: 42px;
+  cursor: pointer;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* ENCABEZADO */
+
+.info-heading {
+  max-width: 800px;
+  margin: 0 auto 55px;
+  text-align: center;
+}
+
+.info-heading h1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(34px, 4.5vw, 54px);
+  font-weight: 800;
+  line-height: 1.16;
+  color: #493832;
+  margin: 10px 0 22px;
+}
+
+.info-heading p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #655F5B;
+  margin: 0;
+}
+
+/* TARJETAS INFORMATIVAS */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.info-card {
+  padding: 35px;
+  background: #FFFFFF;
+  border: 1px solid #F0E5DF;
+  border-radius: 22px;
+  box-shadow: 0 8px 25px rgba(73, 56, 50, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+}
+
+.info-number {
+  width: 48px;
+  height: 48px;
+  background: #FFE4DC;
+  color: #B74632;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.info-conductas .info-number {
+  background: #DDF3E8;
+  color: #23785F;
+}
+
+.info-alertas .info-number {
+  background: #EAE5FF;
+  color: #6554AB;
+}
+
+.info-card h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #493832;
+  font-size: 23px;
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+.info-card p {
+  font-family: 'DM Sans', sans-serif;
+  color: #655F5B;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* CONSEJO DESTACADO */
+
+.info-tip {
+  margin-top: 35px;
+  padding: 30px 35px;
+  background: #FFF0E7;
+  border-left: 5px solid #F26D5B;
+  border-radius: 18px;
+}
+
+.tip-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.tip-heading span {
+  color: #C34E3C;
+  font-size: 29px;
+}
+
+.tip-heading h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 22px;
+  color: #493832;
+  margin: 0;
+}
+
+.info-tip p {
+  font-family: 'DM Sans', sans-serif;
+  color: #655F5B;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* CIERRE DE PÁGINA */
+
+.info-footer {
+  text-align: center;
+  padding-top: 85px;
+}
+
+.info-footer h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #493832;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.info-footer p {
+  color: #655F5B;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.info-footer button {
+  background: #F26D5B;
+  color: #241A18;
+  border: none;
+  border-radius: 14px;
+  padding: 15px 25px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.info-footer button:hover {
+  background: #FF9585;
+}
+
+.info-footer button:focus-visible {
+  outline: 3px solid #5B8DEF;
+  outline-offset: 4px;
+}
+
+/* =====================================
+   ADAPTACIÓN A CELULARES
+===================================== */
+
+@media (max-width: 700px) {
+  .info-page {
+    padding: 30px 6% 65px;
+  }
+
+  .back-link {
+    margin-bottom: 25px;
+  }
+
+  .info-heading {
+    margin-bottom: 35px;
+  }
+
+  .info-heading p {
+    font-size: 16px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .info-card {
+    padding: 26px;
+  }
+
+  .info-tip {
+    padding: 24px;
+  }
+
+  .info-footer {
+    padding-top: 55px;
+  }
+
+  .navbar nav button {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .info-card {
+    transition: none;
+  }
+
+  .info-card:hover {
+    transform: none;
+  }
+}
+
+/* IMAGEN DE LA PÁGINA PRIMEROS DÍAS */
+
+.info-hero-familia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 55px;
+}
+
+.info-hero-familia .info-heading {
+  text-align: left;
+  margin: 0;
+}
+
+.info-hero-familia .info-heading h1 {
+  font-size: clamp(34px, 3.5vw, 48px);
+}
+
+.info-hero-image {
+  width: 100%;
+}
+
+.info-hero-image img {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(73, 56, 50, 0.13);
+}
+
+/* ADAPTACIÓN A CELULARES */
+
+@media (max-width: 800px) {
+  .info-hero-familia {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .info-hero-familia .info-heading {
+    text-align: center;
+  }
+
+  .info-hero-image img {
+    height: auto;
+    max-height: 350px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+}
+
+/* IMAGEN DE PRIMEROS DÍAS */
+
+.info-hero-familia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 55px;
+}
+
+.info-hero-familia .info-heading {
+  text-align: left;
+  margin: 0;
+}
+
+.info-hero-familia .info-heading h1 {
+  font-size: clamp(34px, 3.5vw, 48px);
+}
+
+.info-hero-image img {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(73, 56, 50, 0.13);
+}
+
+@media (max-width: 800px) {
+  .info-hero-familia {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .info-hero-familia .info-heading {
+    text-align: center;
+  }
+
+  .info-hero-image img {
+    height: auto;
+    max-height: 350px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+}
