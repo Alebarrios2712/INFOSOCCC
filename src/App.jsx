@@ -1,8 +1,9 @@
-
 import { useState } from 'react'
 import './App.css'
 import heroImage from './assets/pyg.jpg'
 import familiaImage from './assets/fam.jpg'
+import DiarioAdaptacion from './components/DiarioAdaptacion'
+
 
 // CONTENIDO DE LAS PÁGINAS INFORMATIVAS
 
@@ -89,6 +90,7 @@ const contenidos = {
   }
 }
 
+
 // ICONOS DE LAS TARJETAS
 
 function Icono({ tipo }) {
@@ -128,6 +130,7 @@ function Icono({ tipo }) {
     </svg>
   )
 }
+
 
 // COMPONENTE PRINCIPAL
 
@@ -234,6 +237,14 @@ function App() {
           >
             Alertas
           </button>
+
+          <button
+            type="button"
+            className={pagina === 'diario' ? 'nav-active' : ''}
+            onClick={() => navegar('diario')}
+          >
+            Diario
+          </button>
         </nav>
       </header>
 
@@ -307,6 +318,8 @@ function App() {
               </div>
             </section>
           </>
+        ) : pagina === 'diario' ? (
+          <DiarioAdaptacion />
         ) : (
           /* PÁGINAS INFORMATIVAS */
 
