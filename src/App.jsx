@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import './App.css'
+import QuizAdopcion from './components/QuizAdopcion'
 
 // IMAGEN DE INICIO
 import heroImage from './assets/pyg.jpg'
@@ -60,6 +61,20 @@ function Icono({ tipo }) {
 
 function App() {
   const [pagina, setPagina] = useState('inicio')
+
+
+  function iniciarTest() {
+    setQuiz((anterior) => ({ n: anterior.n + 1, directo: true }))
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById('quiz-adopcion')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      })
+    })
+  }
 
   // ==========================================
   // NAVEGACIÓN ENTRE PÁGINAS
@@ -317,6 +332,15 @@ function App() {
                 >
                   Comenzar guía
                 </button>
+
+                <button
+                  type="button"
+                  className="hero-secundario"
+                  onClick={iniciarTest}
+                >
+                  ¿Estás listo para adoptar?
+                </button>
+
               </div>
 
               <div className="hero-image">
@@ -326,6 +350,11 @@ function App() {
                 />
               </div>
             </section>
+            
+            <QuizAdopcion
+              irAPrimeros={() => navegar('primeros')}
+              irAlDiario={() => navegar('diario')}
+            />
 
             {/* =====================================
                 TARJETAS DE LA PORTADA
