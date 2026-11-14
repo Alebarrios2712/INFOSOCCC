@@ -1,10 +1,10 @@
-import AsistenteConductas from './components/AsistenteConductas'
 import { useState } from 'react'
 import './App.css'
 
 import heroImage from './assets/pyg.jpg'
 import familiaImage from './assets/fam.jpg'
 
+import AsistenteConductas from './components/AsistenteConductas'
 import DiarioAdaptacion from './components/DiarioAdaptacion'
 import PerfilMascota from './components/PerfilMascota'
 
@@ -56,7 +56,8 @@ const contenidos = {
       {
         titulo: 'Miedo o inseguridad',
         texto:
-          'Esconderse, temblar o evitar el contacto puede indicar incomodidad. Proporciónale tranquilidad y espacio.'
+          'Esconderse, temblar o evitar el contacto puede indicar incomodidad. Proporciónale tranquilidad y espacio.',
+        situacion: 'Tu mascota se esconde o evita el contacto.'
       },
       {
         titulo: 'Exploración y curiosidad',
@@ -71,7 +72,8 @@ const contenidos = {
       {
         titulo: 'Juego y aprendizaje',
         texto:
-          'El juego apropiado y los refuerzos positivos ayudan a fortalecer el vínculo y desarrollar confianza.'
+          'El juego apropiado y los refuerzos positivos ayudan a fortalecer el vínculo y desarrollar confianza.',
+        situacion: 'muerde'
       }
     ],
 
@@ -161,6 +163,20 @@ function Icono({ tipo }) {
 
 function App() {
   const [pagina, setPagina] = useState('inicio')
+  const [guia, setGuia] = useState({ id: null, n: 0 })
+
+  function verGuiaPractica(id) {
+    setGuia((anterior) => ({ id, n: anterior.n + 1 }))
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById('guia-practica')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      })
+    })
+  }
 
   // Cambiar entre páginas
   function navegar(destino) {
@@ -274,14 +290,6 @@ function App() {
             Diario
           </button>
 
-          {/* GUÍAS */}
-          <button
-            type="button"
-            onClick={irAGuia}
-          >
-            Guías
-          </button>
-
           {/* PRIMEROS DÍAS */}
           <button
             type="button"
@@ -298,15 +306,6 @@ function App() {
             onClick={() => navegar('conductas')}
           >
             Conductas
-          </button>
-
-          {/* ASISTENTE */}
-          <button
-            type="button"
-            className={pagina === 'asistente' ? 'nav-active' : ''}
-            onClick={() => navegar('asistente')}
-          >
-            Qué hacer
           </button>
 
           {/* ALERTAS */}
@@ -408,11 +407,6 @@ function App() {
           /* DIARIO EXISTENTE */
           <DiarioAdaptacion />
 
-        ) : pagina === 'asistente' ? (
-
-          /* ASISTENTE DE CONDUCTAS */
-          <AsistenteConductas irAlDiario={() => navegar('diario')}  />
-
         ) : (
 
           /* PÁGINAS INFORMATIVAS */
@@ -472,9 +466,26 @@ function App() {
 
                     <h2>{paso.titulo}</h2>
                     <p>{paso.texto}</p>
+                    {paso.situacion && (
+                      <button
+                        type="button"
+                        className="info-card-link"
+                        onClick={() => verGuiaPractica(paso.situacion)}
+                      >
+                        Ver qué hacer ↓
+                      </button>
+                    )}
                   </article>
                 ))}
               </div>
+
+              {pagina === 'conductas' && (
+                <AsistenteConductas
+                  key={guia.n}
+                  situacionInicial={guia.id}
+                  irAlDiario={() => navegar('diario')}
+                />
+              )}
 
               {/* CONSEJO DESTACADO */}
 

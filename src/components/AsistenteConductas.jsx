@@ -243,9 +243,9 @@ const situaciones = [
 
 // COMPONENTE
 
-function AsistenteConductas({ irAlDiario }) {
+function AsistenteConductas({ irAlDiario, situacionInicial = null }) {
   const [tipo, setTipo] = useState('perro')
-  const [seleccionada, setSeleccionada] = useState(null)
+  const [seleccionada, setSeleccionada] = useState(situacionInicial)
   const [probados, setProbados] = useState({})
   const panelRef = useRef(null)
 
@@ -286,16 +286,17 @@ function AsistenteConductas({ irAlDiario }) {
   }
 
   return (
-    <section className="asistente-page">
+    <section className="asistente-section" id="guia-practica">
       <div className="asistente-container">
         <header className="asistente-heading">
           <span className="section-tag">GUÍA PRÁCTICA</span>
 
-          <h1>¿Qué está haciendo tu mascota?</h1>
+          <h2>Y si tu mascota hace esto, ¿qué hago?</h2>
 
           <p>
-            Elige una situación y revisa qué puedes hacer, qué conviene
-            evitar y cuándo es momento de consultar.
+            Ya conoces el significado de sus conductas. Ahora elige una
+            situación para ver qué puedes hacer, qué conviene evitar y
+            cuándo consultar.
           </p>
         </header>
 
@@ -358,14 +359,14 @@ function AsistenteConductas({ irAlDiario }) {
           <div className="asistente-panel" ref={panelRef} aria-live="polite">
             {actual ? (
               <article key={actual.id}>
-                <h2>{actual.titulo}</h2>
+                <h3>{actual.titulo}</h3>
 
                 <p className="asistente-porque">
                   <strong>Por qué puede pasar:</strong> {actual.porQue}
                 </p>
 
                 <section className="asistente-bloque">
-                  <h3>Qué puedes hacer</h3>
+                  <h4>Qué puedes hacer</h4>
 
                   <p className="asistente-ayuda">
                     Marca cada paso cuando lo hayas probado.
@@ -415,7 +416,7 @@ function AsistenteConductas({ irAlDiario }) {
                 </section>
 
                 <section className="asistente-bloque asistente-evitar">
-                  <h3>Qué conviene evitar</h3>
+                  <h4>Qué conviene evitar</h4>
 
                   <ul>
                     {actual.evitar.map((texto) => (
@@ -425,7 +426,7 @@ function AsistenteConductas({ irAlDiario }) {
                 </section>
 
                 <section className="asistente-bloque asistente-vet">
-                  <h3>Cuándo consultar al veterinario</h3>
+                  <h4>Cuándo consultar al veterinario</h4>
 
                   <ul>
                     {actual.veterinario.map((texto) => (
@@ -456,7 +457,7 @@ function AsistenteConductas({ irAlDiario }) {
             ) : (
               <div className="asistente-vacio">
                 <span aria-hidden="true">🐾</span>
-                <h2>Elige una situación</h2>
+                <h3>Elige una situación</h3>
                 <p>
                   Te mostraremos pasos concretos para acompañar a tu{' '}
                   {tipo === 'perro' ? 'perro' : 'gato'}.
