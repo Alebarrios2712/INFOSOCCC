@@ -2,58 +2,15 @@
 import { useState } from 'react'
 import './App.css'
 
+// IMAGEN DE INICIO
 import heroImage from './assets/pyg.jpg'
-import familiaImage from './assets/fam.jpg'
 
 // COMPONENTES DEL PROYECTO
 import AsistenteConductas from './components/AsistenteConductas'
 import DiarioAdaptacion from './components/DiarioAdaptacion'
 import PerfilMascota from './components/PerfilMascota'
 import AlertasEmergencia from './components/AlertasEmergencia'
-
-// ==========================================
-// CONTENIDO DE LAS PÁGINAS INFORMATIVAS
-// ==========================================
-
-const contenidos = {
-  primeros: {
-    etiqueta: 'ADAPTACIÓN AL HOGAR',
-    titulo: 'Sus primeros días en casa',
-    descripcion:
-      'Un nuevo hogar significa nuevos olores, personas y rutinas. Acompaña a tu mascota con paciencia y cariño.',
-
-    pasos: [
-      {
-        titulo: 'Prepara un espacio seguro',
-        texto:
-          'Elige un lugar tranquilo con agua, comida, una cama y un espacio donde pueda descansar sin interrupciones.'
-      },
-      {
-        titulo: 'Respeta su ritmo',
-        texto:
-          'Algunas mascotas exploran rápidamente y otras necesitan más tiempo. Evita forzar el contacto físico.'
-      },
-      {
-        titulo: 'Establece rutinas',
-        texto:
-          'Mantén horarios consistentes para la alimentación, el descanso, los paseos y el juego según sus necesidades.'
-      },
-      {
-        titulo: 'Construye confianza',
-        texto:
-          'Acércate con calma, utiliza refuerzos positivos y permite que tu mascota tome la iniciativa para interactuar.'
-      }
-    ],
-
-    consejo:
-      'No todas las mascotas se adaptan al mismo ritmo. La paciencia y la constancia son fundamentales.'
-  },
-
-  conductas: {
-    consejo:
-      'Observa el contexto y el lenguaje corporal completo. Una conducta aislada no siempre tiene un único significado.'
-  }
-}
+import PrimerosDias from './components/PrimerosDias'
 
 // ==========================================
 // ICONOS DE LAS TARJETAS DE INICIO
@@ -163,8 +120,6 @@ function App() {
     }
   ]
 
-  const contenido = contenidos[pagina]
-
   // ==========================================
   // ESTRUCTURA PRINCIPAL
   // ==========================================
@@ -202,25 +157,29 @@ function App() {
                 rx="1.9"
                 ry="2.6"
               />
+
               <ellipse
                 cx="10"
                 cy="4.7"
                 rx="1.9"
                 ry="2.6"
               />
+
               <ellipse
                 cx="15"
                 cy="5.1"
                 rx="1.9"
                 ry="2.6"
               />
+
               <ellipse
                 cx="19.3"
                 cy="8.6"
                 rx="1.8"
                 ry="2.5"
               />
-              <path d="M12 10.4c-2.2 0-3.3 1.5-4.7 3.1-1.1 1.2-2.6 2.4-2.6 4.1 0 1.8 1.4 3 3.2 3 1.5 0 2.7-.8 4.1-.8s2.6.8 4.1.8c1.8 0 3.2-1.2 3.2-3 0-1.7-1.5-2.9-2.6-4.1-1.4-1.6-2.5-3.1-4.7-3.1z" />
+
+              <path d="M12 10.4c-2.2 0-3.3 1.5-4.7 3.1-1.1 1.2-2.6 2.4-2.6 4.1-1.1 1.2-2.6 2.4-2.6 4.1 0 1.8 1.4 3 3.2 3 1.5 0 2.7-.8 4.1-.8s2.6.8 4.1.8c1.8 0 3.2-1.2 3.2-3 0-1.7-1.5-2.9-2.6-4.1-1.4-1.6-2.5-3.1-4.7-3.1z" />
             </svg>
           </span>
 
@@ -256,7 +215,10 @@ function App() {
             }`}
             onClick={() => navegar('mascota')}
           >
-            <span aria-hidden="true">🐾</span>
+            <span aria-hidden="true">
+              🐾
+            </span>
+
             Mi mascota
           </button>
 
@@ -379,7 +341,9 @@ function App() {
                   TE ACOMPAÑAMOS
                 </span>
 
-                <h2>¿Qué necesitas saber?</h2>
+                <h2>
+                  ¿Qué necesitas saber?
+                </h2>
 
                 <p>
                   Cada mascota tiene su propio ritmo.
@@ -400,9 +364,13 @@ function App() {
                       <Icono tipo={tarjeta.id} />
                     </div>
 
-                    <h3>{tarjeta.titulo}</h3>
+                    <h3>
+                      {tarjeta.titulo}
+                    </h3>
 
-                    <p>{tarjeta.descripcion}</p>
+                    <p>
+                      {tarjeta.descripcion}
+                    </p>
 
                     <button
                       type="button"
@@ -410,7 +378,10 @@ function App() {
                       onClick={() => navegar(tarjeta.id)}
                     >
                       Explorar tema
-                      <span aria-hidden="true">→</span>
+
+                      <span aria-hidden="true">
+                        →
+                      </span>
                     </button>
 
                   </article>
@@ -436,27 +407,26 @@ function App() {
 
           <DiarioAdaptacion />
 
-        ) : pagina === 'alertas' ? (
+        ) : pagina === 'primeros' ? (
 
           /* =====================================
-              GUÍAS DE EMERGENCIA
+              NUEVA GUÍA INTERACTIVA
+              DE PRIMEROS DÍAS
           ===================================== */
 
-          <AlertasEmergencia />
+          <PrimerosDias />
 
-        ) : (
+        ) : pagina === 'conductas' ? (
 
           /* =====================================
-              PRIMEROS DÍAS Y CONDUCTAS
+              GUÍA INTERACTIVA DE CONDUCTAS
           ===================================== */
 
-          <section
-            className={`info-page info-${pagina}`}
-            key={pagina}
-          >
+          <section className="info-page info-conductas">
+
             <div className="info-container">
 
-              {/* BOTÓN VOLVER */}
+              {/* VOLVER AL INICIO */}
 
               <button
                 type="button"
@@ -466,106 +436,47 @@ function App() {
                 ← Volver al inicio
               </button>
 
-              {/* =====================================
-                  ENCABEZADO EXCLUSIVO
-                  PARA PRIMEROS DÍAS
-              ===================================== */}
+              {/* GUÍA DE CONDUCTAS */}
 
-              {pagina === 'primeros' && (
-                <div className="info-hero info-hero-familia">
+              <AsistenteConductas
+                irAlDiario={() => navegar('diario')}
+              />
 
-                  <div className="info-heading">
-
-                    <span className="section-tag">
-                      {contenido.etiqueta}
-                    </span>
-
-                    <h1>{contenido.titulo}</h1>
-
-                    <p>{contenido.descripcion}</p>
-
-                  </div>
-
-                  <div className="info-hero-image">
-                    <img
-                      src={familiaImage}
-                      alt="Familia compartiendo un momento de cariño con su perro en casa"
-                    />
-                  </div>
-
-                </div>
-              )}
-
-              {/* =====================================
-                  TARJETAS NUMERADAS
-                  SOLO PARA PRIMEROS DÍAS
-              ===================================== */}
-
-              {pagina === 'primeros' && (
-                <div className="info-grid">
-
-                  {contenido.pasos.map(
-                    (paso, index) => (
-                      <article
-                        className="info-card"
-                        key={paso.titulo}
-                      >
-
-                        <div className="info-number">
-                          {String(index + 1).padStart(2, '0')}
-                        </div>
-
-                        <h2>{paso.titulo}</h2>
-
-                        <p>{paso.texto}</p>
-
-                      </article>
-                    )
-                  )}
-
-                </div>
-              )}
-
-              {/* =====================================
-                  CONDUCTAS
-                  ÚNICAMENTE LA GUÍA INTERACTIVA
-                  SIN ENCABEZADO NI TARJETAS
-              ===================================== */}
-
-              {pagina === 'conductas' && (
-                <AsistenteConductas
-                  irAlDiario={() => navegar('diario')}
-                />
-              )}
-
-              {/* =====================================
-                  CONSEJO DESTACADO
-              ===================================== */}
+              {/* CONSEJO FINAL */}
 
               <aside className="info-tip">
+
                 <div className="tip-heading">
 
-                  <span aria-hidden="true">♡</span>
+                  <span aria-hidden="true">
+                    ♡
+                  </span>
 
-                  <h2>Un consejo para ti</h2>
+                  <h2>
+                    Un consejo para ti
+                  </h2>
 
                 </div>
 
-                <p>{contenido.consejo}</p>
+                <p>
+                  Observa el contexto y el lenguaje
+                  corporal completo de tu mascota.
+                  Una conducta aislada no siempre
+                  tiene un único significado.
+                </p>
               </aside>
 
-              {/* =====================================
-                  CIERRE DE LA PÁGINA
-              ===================================== */}
+              {/* CIERRE */}
 
               <div className="info-footer">
 
-                <h2>Seguimos acompañándote</h2>
+                <h2>
+                  Seguimos acompañándote
+                </h2>
 
                 <p>
-                  Explora los demás temas para
-                  aprender a cuidar y comprender
-                  a tu mascota.
+                  Explora los demás temas para aprender
+                  a cuidar y comprender a tu mascota.
                 </p>
 
                 <button
@@ -576,11 +487,18 @@ function App() {
                 </button>
 
               </div>
-
             </div>
           </section>
 
-        )}
+        ) : pagina === 'alertas' ? (
+
+          /* =====================================
+              GUÍAS DE EMERGENCIA
+          ===================================== */
+
+          <AlertasEmergencia />
+
+        ) : null}
 
       </main>
     </div>
