@@ -1,11 +1,16 @@
+
 import { useState } from 'react'
 import './App.css'
+
 import heroImage from './assets/pyg.jpg'
 import familiaImage from './assets/fam.jpg'
+
 import DiarioAdaptacion from './components/DiarioAdaptacion'
+import PerfilMascota from './components/PerfilMascota'
 
-
+// ==========================================
 // CONTENIDO DE LAS PÁGINAS INFORMATIVAS
+// ==========================================
 
 const contenidos = {
   primeros: {
@@ -13,24 +18,30 @@ const contenidos = {
     titulo: 'Sus primeros días en casa',
     descripcion:
       'Un nuevo hogar significa nuevos olores, personas y rutinas. Acompaña a tu mascota con paciencia y cariño.',
+
     pasos: [
       {
         titulo: 'Prepara un espacio seguro',
-        texto: 'Elige un lugar tranquilo con agua, comida, una cama y un espacio donde pueda descansar sin interrupciones.'
+        texto:
+          'Elige un lugar tranquilo con agua, comida, una cama y un espacio donde pueda descansar sin interrupciones.'
       },
       {
         titulo: 'Respeta su ritmo',
-        texto: 'Algunas mascotas exploran rápidamente y otras necesitan más tiempo. Evita forzar el contacto físico.'
+        texto:
+          'Algunas mascotas exploran rápidamente y otras necesitan más tiempo. Evita forzar el contacto físico.'
       },
       {
         titulo: 'Establece rutinas',
-        texto: 'Mantén horarios consistentes para la alimentación, el descanso, los paseos y el juego según sus necesidades.'
+        texto:
+          'Mantén horarios consistentes para la alimentación, el descanso, los paseos y el juego según sus necesidades.'
       },
       {
         titulo: 'Construye confianza',
-        texto: 'Acércate con calma, utiliza refuerzos positivos y permite que tu mascota tome la iniciativa para interactuar.'
+        texto:
+          'Acércate con calma, utiliza refuerzos positivos y permite que tu mascota tome la iniciativa para interactuar.'
       }
     ],
+
     consejo:
       'No todas las mascotas se adaptan al mismo ritmo. La paciencia y la constancia son fundamentales.'
   },
@@ -40,24 +51,30 @@ const contenidos = {
     titulo: 'Entendiendo sus conductas',
     descripcion:
       'El comportamiento de tu mascota es una forma de comunicación. Aprender a observarlo te ayudará a responder a sus necesidades.',
+
     pasos: [
       {
         titulo: 'Miedo o inseguridad',
-        texto: 'Esconderse, temblar o evitar el contacto puede indicar incomodidad. Proporciónale tranquilidad y espacio.'
+        texto:
+          'Esconderse, temblar o evitar el contacto puede indicar incomodidad. Proporciónale tranquilidad y espacio.'
       },
       {
         titulo: 'Exploración y curiosidad',
-        texto: 'Olfatear, observar y recorrer los espacios son formas habituales de conocer su nuevo entorno.'
+        texto:
+          'Olfatear, observar y recorrer los espacios son formas habituales de conocer su nuevo entorno.'
       },
       {
         titulo: 'Necesidad de descanso',
-        texto: 'Un animal puede necesitar momentos de tranquilidad después de conocer personas, jugar o explorar.'
+        texto:
+          'Un animal puede necesitar momentos de tranquilidad después de conocer personas, jugar o explorar.'
       },
       {
         titulo: 'Juego y aprendizaje',
-        texto: 'El juego apropiado y los refuerzos positivos ayudan a fortalecer el vínculo y desarrollar confianza.'
+        texto:
+          'El juego apropiado y los refuerzos positivos ayudan a fortalecer el vínculo y desarrollar confianza.'
       }
     ],
+
     consejo:
       'Observa el contexto y el lenguaje corporal completo. Una conducta aislada no siempre tiene un único significado.'
   },
@@ -67,31 +84,38 @@ const contenidos = {
     titulo: 'Señales que merecen atención',
     descripcion:
       'Identificar cambios importantes en la salud o el comportamiento permite buscar orientación profesional oportunamente.',
+
     pasos: [
       {
         titulo: 'Cambios en la alimentación',
-        texto: 'La falta de apetito, la dificultad para beber o los cambios importantes en sus hábitos requieren evaluación según su duración y contexto.'
+        texto:
+          'La falta de apetito, la dificultad para beber o los cambios importantes en sus hábitos requieren evaluación según su duración y contexto.'
       },
       {
         titulo: 'Cambios de comportamiento',
-        texto: 'El aislamiento repentino, el dolor aparente o una agresividad inusual pueden indicar malestar físico o emocional.'
+        texto:
+          'El aislamiento repentino, el dolor aparente o una agresividad inusual pueden indicar malestar físico o emocional.'
       },
       {
         titulo: 'Problemas digestivos',
-        texto: 'Los vómitos o la diarrea repetidos, especialmente si se acompañan de decaimiento, requieren atención veterinaria.'
+        texto:
+          'Los vómitos o la diarrea repetidos, especialmente si se acompañan de decaimiento, requieren atención veterinaria.'
       },
       {
         titulo: 'Señales de urgencia',
-        texto: 'La dificultad para respirar, las convulsiones, el colapso o las lesiones graves requieren atención veterinaria inmediata.'
+        texto:
+          'La dificultad para respirar, las convulsiones, el colapso o las lesiones graves requieren atención veterinaria inmediata.'
       }
     ],
+
     consejo:
       'Esta información es orientativa y no sustituye una evaluación veterinaria. Ante una urgencia, busca atención inmediata.'
   }
 }
 
-
+// ==========================================
 // ICONOS DE LAS TARJETAS
+// ==========================================
 
 function Icono({ tipo }) {
   const atributos = {
@@ -131,17 +155,20 @@ function Icono({ tipo }) {
   )
 }
 
-
+// ==========================================
 // COMPONENTE PRINCIPAL
+// ==========================================
 
 function App() {
   const [pagina, setPagina] = useState('inicio')
 
+  // Cambiar entre páginas
   function navegar(destino) {
     setPagina(destino)
     window.scrollTo({ top: 0, behavior: 'auto' })
   }
 
+  // Ir a la sección de guías de la portada
   function irAGuia() {
     setPagina('inicio')
 
@@ -154,6 +181,7 @@ function App() {
     })
   }
 
+  // Tarjetas de la portada
   const tarjetas = [
     {
       id: 'primeros',
@@ -182,7 +210,10 @@ function App() {
 
   return (
     <div>
-      {/* BARRA DE NAVEGACIÓN */}
+
+      {/* =====================================
+          BARRA DE NAVEGACIÓN
+      ===================================== */}
 
       <header className="navbar">
         <button
@@ -209,7 +240,11 @@ function App() {
           <span>Huella Segura</span>
         </button>
 
+        {/* NUEVO ORDEN DE NAVEGACIÓN */}
+
         <nav aria-label="Navegación principal">
+
+          {/* INICIO */}
           <button
             type="button"
             className={pagina === 'inicio' ? 'nav-active' : ''}
@@ -218,10 +253,45 @@ function App() {
             Inicio
           </button>
 
-          <button type="button" onClick={irAGuia}>
-            Guía
+          {/* MI MASCOTA - DESTACADO */}
+          <button
+            type="button"
+            className={`nav-mascota ${
+              pagina === 'mascota' ? 'nav-mascota-active' : ''
+            }`}
+            onClick={() => navegar('mascota')}
+          >
+            <span aria-hidden="true">🐾</span>
+            Mi mascota
           </button>
 
+          {/* DIARIO */}
+          <button
+            type="button"
+            className={pagina === 'diario' ? 'nav-active' : ''}
+            onClick={() => navegar('diario')}
+          >
+            Diario
+          </button>
+
+          {/* GUÍAS */}
+          <button
+            type="button"
+            onClick={irAGuia}
+          >
+            Guías
+          </button>
+
+          {/* PRIMEROS DÍAS */}
+          <button
+            type="button"
+            className={pagina === 'primeros' ? 'nav-active' : ''}
+            onClick={() => navegar('primeros')}
+          >
+            Primeros días
+          </button>
+
+          {/* CONDUCTAS */}
           <button
             type="button"
             className={pagina === 'conductas' ? 'nav-active' : ''}
@@ -230,6 +300,7 @@ function App() {
             Conductas
           </button>
 
+          {/* ALERTAS */}
           <button
             type="button"
             className={pagina === 'alertas' ? 'nav-active' : ''}
@@ -237,16 +308,12 @@ function App() {
           >
             Alertas
           </button>
-
-          <button
-            type="button"
-            className={pagina === 'diario' ? 'nav-active' : ''}
-            onClick={() => navegar('diario')}
-          >
-            Diario
-          </button>
         </nav>
       </header>
+
+      {/* =====================================
+          CONTENIDO PRINCIPAL
+      ===================================== */}
 
       <main>
         {pagina === 'inicio' ? (
@@ -263,7 +330,10 @@ function App() {
                   y reconocer cuándo necesita ayuda.
                 </p>
 
-                <button type="button" onClick={irAGuia}>
+                <button
+                  type="button"
+                  onClick={irAGuia}
+                >
                   Comenzar guía
                 </button>
               </div>
@@ -303,6 +373,7 @@ function App() {
                     </div>
 
                     <h3>{tarjeta.titulo}</h3>
+
                     <p>{tarjeta.descripcion}</p>
 
                     <button
@@ -318,9 +389,18 @@ function App() {
               </div>
             </section>
           </>
+        ) : pagina === 'mascota' ? (
+
+          /* PERFIL DE MASCOTA */
+          <PerfilMascota />
+
         ) : pagina === 'diario' ? (
+
+          /* DIARIO EXISTENTE */
           <DiarioAdaptacion />
+
         ) : (
+
           /* PÁGINAS INFORMATIVAS */
 
           <section
@@ -336,9 +416,13 @@ function App() {
                 ← Volver al inicio
               </button>
 
-              {/* ENCABEZADO CON FOTO EN PRIMEROS DÍAS */}
+              {/* ENCABEZADO */}
 
-              <div className={`info-hero ${pagina === 'primeros' ? 'info-hero-familia' : ''}`}>
+              <div
+                className={`info-hero ${
+                  pagina === 'primeros' ? 'info-hero-familia' : ''
+                }`}
+              >
                 <div className="info-heading">
                   <span className="section-tag">
                     {contenido.etiqueta}
@@ -347,6 +431,8 @@ function App() {
                   <h1>{contenido.titulo}</h1>
                   <p>{contenido.descripcion}</p>
                 </div>
+
+                {/* FOTO DE PRIMEROS DÍAS */}
 
                 {pagina === 'primeros' && (
                   <div className="info-hero-image">
@@ -362,7 +448,10 @@ function App() {
 
               <div className="info-grid">
                 {contenido.pasos.map((paso, index) => (
-                  <article className="info-card" key={paso.titulo}>
+                  <article
+                    className="info-card"
+                    key={paso.titulo}
+                  >
                     <div className="info-number">
                       {String(index + 1).padStart(2, '0')}
                     </div>
@@ -394,7 +483,10 @@ function App() {
                   a cuidar y comprender a tu mascota.
                 </p>
 
-                <button type="button" onClick={irAGuia}>
+                <button
+                  type="button"
+                  onClick={irAGuia}
+                >
                   Ver otros temas →
                 </button>
               </div>

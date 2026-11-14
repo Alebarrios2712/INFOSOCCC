@@ -1999,3 +1999,59 @@ button.card-link {
     align-items: flex-start;
   }
 }
+
+/* ==================================
+   BOTÓN DESTACADO: MI MASCOTA
+================================== */
+
+.navbar nav .nav-mascota {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  background-color: #F26D5B;
+  color: #493832;
+
+  border: 2px solid transparent;
+  border-radius: 999px;
+
+  padding: 10px 18px;
+  font-weight: 800;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.navbar nav .nav-mascota:hover {
+  background-color: #E85B48;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(242, 109, 91, 0.25);
+}
+
+.navbar nav .nav-mascota-active {
+  background-color: #493832;
+  color: #FFFFFF;
+  border-color: #F26D5B;
+}
+
+.navbar nav .nav-mascota-active:hover {
+  background-color: #493832;
+  color: #FFFFFF;
+}
+
+.navbar nav .nav-mascota:focus-visible {
+  outline: 3px solid #493832;
+  outline-offset: 3px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+  .navbar nav .nav-mascota {
+    padding: 9px 14px;
+    font-size: 14px;
+  }
+}

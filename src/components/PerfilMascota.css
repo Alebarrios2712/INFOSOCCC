@@ -1,0 +1,134 @@
+
+.perfil-mascota {
+  min-height: 80vh;
+  padding: 65px 8%;
+  background: linear-gradient(
+    135deg,
+    #FFF0E8,
+    #FFF8F4,
+    #EAF6F1
+  );
+  font-family: 'DM Sans', sans-serif;
+}
+
+.perfil-encabezado {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 40px;
+}
+
+.perfil-encabezado h1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(32px, 4vw, 46px);
+  color: #493832;
+}
+
+.perfil-encabezado p {
+  color: #655F5B;
+  line-height: 1.7;
+}
+
+.perfil-formulario,
+.perfil-resumen {
+  max-width: 580px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 24px;
+  padding: 38px;
+  box-shadow: 0 12px 35px rgba(73, 56, 50, 0.08);
+}
+
+.perfil-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.perfil-formulario h2,
+.perfil-resumen h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #493832;
+  margin-top: 0;
+}
+
+.perfil-formulario label {
+  font-weight: 700;
+  color: #493832;
+}
+
+.perfil-formulario input,
+.perfil-formulario select,
+.perfil-formulario textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #D9CECA;
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: #493832;
+  font: inherit;
+}
+
+.perfil-formulario input:focus,
+.perfil-formulario select:focus,
+.perfil-formulario textarea:focus {
+  outline: 2px solid #F26D5B;
+  outline-offset: 2px;
+}
+
+.perfil-formulario button,
+.perfil-resumen button {
+  background: #F26D5B;
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  color: #241A18;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.perfil-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #FFF0E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  margin: 0 auto 20px;
+}
+
+.perfil-resumen {
+  text-align: center;
+}
+
+.perfil-resumen p {
+  line-height: 1.7;
+  color: #655F5B;
+}
+
+.perfil-accesos {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.perfil-accesos div {
+  padding: 18px;
+  border-radius: 14px;
+  background: #FFF0E8;
+  color: #493832;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .perfil-mascota {
+    padding: 42px 5%;
+  }
+
+  .perfil-formulario,
+  .perfil-resumen {
+    padding: 25px;
+  }
+}
