@@ -1,4 +1,8 @@
 
+/* ==========================================
+   PERFIL DE MASCOTA - HUELLA SEGURA
+========================================== */
+
 .perfil-mascota {
   min-height: 80vh;
   padding: 65px 8%;
@@ -9,18 +13,29 @@
     #EAF6F1
   );
   font-family: 'DM Sans', sans-serif;
+  box-sizing: border-box;
 }
+
+.perfil-mascota *,
+.perfil-mascota *::before,
+.perfil-mascota *::after {
+  box-sizing: border-box;
+}
+
+/* ENCABEZADO */
 
 .perfil-encabezado {
   text-align: center;
   max-width: 650px;
-  margin: 0 auto 40px;
+  margin: 0 auto 35px;
 }
 
 .perfil-encabezado h1 {
   font-family: 'Nunito Sans', sans-serif;
-  font-size: clamp(32px, 4vw, 46px);
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 800;
   color: #493832;
+  margin: 12px 0;
 }
 
 .perfil-encabezado p {
@@ -28,27 +43,31 @@
   line-height: 1.7;
 }
 
+/* TARJETAS DEL PERFIL */
+
 .perfil-formulario,
 .perfil-resumen {
   max-width: 580px;
   margin: 0 auto;
-  background: white;
+  background: #FFFFFF;
   border-radius: 24px;
   padding: 38px;
   box-shadow: 0 12px 35px rgba(73, 56, 50, 0.08);
 }
 
+.perfil-formulario h2,
+.perfil-resumen h2 {
+  color: #493832;
+  font-family: 'Nunito Sans', sans-serif;
+  margin-top: 0;
+}
+
+/* FORMULARIO */
+
 .perfil-formulario {
   display: flex;
   flex-direction: column;
   gap: 14px;
-}
-
-.perfil-formulario h2,
-.perfil-resumen h2 {
-  font-family: 'Nunito Sans', sans-serif;
-  color: #493832;
-  margin-top: 0;
 }
 
 .perfil-formulario label {
@@ -57,34 +76,69 @@
 }
 
 .perfil-formulario input,
-.perfil-formulario select,
-.perfil-formulario textarea {
+.perfil-formulario select {
   width: 100%;
   padding: 14px;
   border: 1px solid #D9CECA;
   border-radius: 12px;
   background: #FFFFFF;
   color: #493832;
-  font: inherit;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
 }
 
-.perfil-formulario input:focus,
-.perfil-formulario select:focus,
-.perfil-formulario textarea:focus {
-  outline: 2px solid #F26D5B;
-  outline-offset: 2px;
+.perfil-mensaje {
+  color: #A33C32;
+  font-size: 14px;
 }
 
-.perfil-formulario button,
-.perfil-resumen button {
-  background: #F26D5B;
+/* BOTONES */
+
+.perfil-formulario .perfil-guardar,
+.perfil-accesos .perfil-boton-vacunas {
+  width: 100%;
+  padding: 16px;
   border: none;
   border-radius: 14px;
+  background: #F26D5B;
+  color: #493832;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.perfil-formulario .perfil-guardar:hover,
+.perfil-accesos .perfil-boton-vacunas:hover {
+  background: #E85B48;
+  color: #FFFFFF;
+}
+
+.perfil-formulario .perfil-cancelar,
+.perfil-resumen .perfil-editar {
+  width: 100%;
   padding: 15px;
-  color: #241A18;
+  background: #FFF0E8;
+  color: #493832;
+  border: 1px solid #E9D9D0;
+  border-radius: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   margin-top: 12px;
+}
+
+.perfil-mascota button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* PERFIL REGISTRADO */
+
+.perfil-resumen {
+  text-align: center;
 }
 
 .perfil-avatar {
@@ -99,28 +153,233 @@
   margin: 0 auto 20px;
 }
 
-.perfil-resumen {
-  text-align: center;
+.perfil-resumen .section-tag {
+  display: inline-block;
+  margin-bottom: 18px;
 }
 
-.perfil-resumen p {
-  line-height: 1.7;
+.perfil-resumen h2 {
+  color: #493832;
+  font-size: 27px;
+  margin-bottom: 18px;
+}
+
+.perfil-datos p {
   color: #655F5B;
+  line-height: 1.7;
+}
+
+.perfil-datos strong {
+  color: #493832;
 }
 
 .perfil-accesos {
-  display: grid;
-  gap: 12px;
-  margin-top: 28px;
+  margin-top: 25px;
 }
 
-.perfil-accesos div {
-  padding: 18px;
-  border-radius: 14px;
-  background: #FFF0E8;
-  color: #493832;
-  font-weight: 600;
+/* ==========================================
+   LISTA DE VACUNAS
+========================================== */
+
+.vacunas-contenedor {
+  max-width: 800px;
+  margin: 0 auto;
 }
+
+.perfil-mascota .vacunas-volver {
+  background: transparent;
+  border: none;
+  padding: 10px 0;
+  color: #493832;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.perfil-mascota .vacunas-volver:hover {
+  color: #E85B48;
+}
+
+.vacunas-encabezado {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.vacunas-encabezado h1 {
+  color: #493832;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(30px, 4vw, 42px);
+  margin: 12px 0;
+}
+
+.vacunas-encabezado p {
+  color: #655F5B;
+  line-height: 1.7;
+}
+
+.vacunas-lista-simple {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* TARJETA DE CADA VACUNA */
+
+.vacuna-tarjeta {
+  background: #FFFFFF;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(73, 56, 50, 0.06);
+}
+
+.vacuna-tarjeta-encabezado {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.vacuna-tarjeta h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #493832;
+  font-size: 24px;
+  margin: 0;
+}
+
+.vacuna-opcional {
+  background: #F0EEFF;
+  color: #55487A;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* DESCRIPCIÓN DE LA VACUNA */
+
+.vacuna-informacion {
+  background: #FFF8F4;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 22px;
+}
+
+.vacuna-informacion h3,
+.vacuna-dosis-lista h3 {
+  color: #493832;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.vacuna-informacion p {
+  color: #655F5B;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* CASILLAS DE DOSIS */
+
+.vacuna-dosis-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vacuna-casilla {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px;
+  background: #FFF8F4;
+  border: 1px solid #EDE1DB;
+  border-radius: 14px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.vacuna-casilla:hover {
+  border-color: #F26D5B;
+}
+
+.vacuna-casilla input[type='checkbox'] {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  accent-color: #F26D5B;
+  cursor: pointer;
+}
+
+.vacuna-casilla-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+
+.vacuna-casilla-texto strong {
+  color: #493832;
+  font-size: 14px;
+}
+
+.vacuna-casilla-texto span {
+  color: #655F5B;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.vacuna-casilla-estado {
+  color: #655F5B;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.vacuna-casilla-marcada {
+  background: #EAF6F1;
+  border-color: #A9DCC5;
+}
+
+.vacuna-casilla-marcada .vacuna-casilla-estado {
+  color: #286F55;
+}
+
+/* AVISO INFORMATIVO */
+
+.vacunas-aviso {
+  margin-top: 25px;
+  background: #FFF0E8;
+  padding: 24px;
+  border-radius: 18px;
+}
+
+.vacunas-aviso strong {
+  color: #493832;
+  font-size: 16px;
+}
+
+.vacunas-aviso p {
+  color: #655F5B;
+  line-height: 1.7;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+/* ACCESIBILIDAD */
+
+.perfil-mascota button:focus-visible,
+.perfil-mascota input:focus-visible,
+.perfil-mascota select:focus-visible {
+  outline: 3px solid #493832;
+  outline-offset: 3px;
+}
+
+/* DISEÑO PARA CELULARES */
 
 @media (max-width: 600px) {
   .perfil-mascota {
@@ -130,5 +389,26 @@
   .perfil-formulario,
   .perfil-resumen {
     padding: 25px;
+  }
+
+  .vacuna-tarjeta {
+    padding: 19px;
+  }
+
+  .vacuna-tarjeta h2 {
+    font-size: 21px;
+  }
+
+  .vacuna-casilla {
+    flex-wrap: wrap;
+    padding: 13px;
+  }
+
+  .vacuna-casilla-estado {
+    margin-left: 35px;
+  }
+
+  .perfil-encabezado h1 {
+    font-size: 32px;
   }
 }
