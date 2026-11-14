@@ -1,4 +1,4 @@
-
+import AsistenteConductas from './components/AsistenteConductas'
 import { useState } from 'react'
 import './App.css'
 
@@ -300,6 +300,15 @@ function App() {
             Conductas
           </button>
 
+          {/* ASISTENTE */}
+          <button
+            type="button"
+            className={pagina === 'asistente' ? 'nav-active' : ''}
+            onClick={() => navegar('asistente')}
+          >
+            Qué hacer
+          </button>
+
           {/* ALERTAS */}
           <button
             type="button"
@@ -398,6 +407,11 @@ function App() {
 
           /* DIARIO EXISTENTE */
           <DiarioAdaptacion />
+
+        ) : pagina === 'asistente' ? (
+
+          /* ASISTENTE DE CONDUCTAS */
+          <AsistenteConductas irAlDiario={() => navegar('diario')}  />
 
         ) : (
 
