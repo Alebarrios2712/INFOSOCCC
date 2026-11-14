@@ -1,8 +1,13 @@
+
 import { useRef, useState } from 'react'
 import './AsistenteConductas.css'
 
+// FOTO DEL ENCABEZADO
+import conductaHero from '../assets/conductas.jpg'
+
+// ==========================================
 // SITUACIONES FRECUENTES
-// tipos: ['perro'], ['gato'] o ['perro', 'gato']
+// ==========================================
 
 const situaciones = [
   {
@@ -25,7 +30,7 @@ const situaciones = [
       'Presentarle a muchas personas de una vez.'
     ],
     veterinario: [
-      'Pasa más de 24 horas sin comer (gatos) o más de 48 (perros), o no bebe agua en todo un día.',
+      'Si deja de comer, beber o presenta otros síntomas, consulta con un veterinario. En gatos, la falta de alimentación durante 24 horas requiere atención pronta.',
       'Después de dos o tres semanas no muestra ningún avance.'
     ]
   },
@@ -49,8 +54,8 @@ const situaciones = [
       'Quedarte mirándolo mientras come.'
     ],
     veterinario: [
-      'Pasa más de 24 horas sin comer (gatos) o más de 48 (perros).',
-      'Además tiene vómitos, diarrea, decaimiento o no toma agua.'
+      'Si no come durante 24 horas, especialmente si es gato, consulta prontamente. En cachorros, animales mayores o enfermos, no esperes ese plazo.',
+      'Si además tiene vómitos, diarrea, decaimiento o no toma agua, consulta de inmediato.'
     ]
   },
   {
@@ -64,8 +69,8 @@ const situaciones = [
     hacer: [
       'Acostúmbralo a separaciones muy cortas y alárgalas poco a poco.',
       'Paséalo y juega con él antes de salir para que esté tranquilo.',
-      'Déjale un juguete relleno de comida o un mordedor para entretenerse.',
-      'Sal y vuelve sin despedidas ni saludos exagerados.'
+      'Déjale un juguete relleno de comida o un mordedor seguro para entretenerse.',
+      'Practica salidas y regresos tranquilos, respetando su nivel de tolerancia.'
     ],
     evitar: [
       'Retarlo o castigarlo por ladrar o llorar.',
@@ -96,7 +101,7 @@ const situaciones = [
     ],
     veterinario: [
       'Orina con mucha frecuencia, con esfuerzo o con sangre.',
-      'Tiene diarrea por más de un día.'
+      'Tiene diarrea persistente, sangre en las heces o decaimiento.'
     ]
   },
   {
@@ -119,7 +124,7 @@ const situaciones = [
     ],
     veterinario: [
       'Gruñe o muerde cuando lo tocas en una zona concreta: puede haber dolor.',
-      'Sus mordidas lastiman o son cada vez más fuertes. Pide ayuda a un adiestrador que use refuerzo positivo.'
+      'Sus mordidas lastiman o son cada vez más fuertes. Busca orientación profesional basada en refuerzo positivo.'
     ]
   },
   {
@@ -156,7 +161,7 @@ const situaciones = [
     hacer: [
       'Pon el arenero en un lugar tranquilo, lejos de su comida y su agua.',
       'Usa la misma arena que tenía antes y retira los residuos todos los días.',
-      'Llévalo al arenero después de comer o al despertar.',
+      'Facilita que encuentre y acceda al arenero sin obstáculos.',
       'Limpia los accidentes con un limpiador enzimático.'
     ],
     evitar: [
@@ -165,7 +170,7 @@ const situaciones = [
     ],
     veterinario: [
       'Orina muy seguido o en pequeñas cantidades.',
-      'Hay sangre en la orina o tiene diarrea por más de un día.'
+      'Hay sangre en la orina o tiene diarrea persistente.'
     ],
     urgencia:
       'Si va al arenero, hace esfuerzo y no logra orinar, llévalo al veterinario de inmediato. Es una urgencia, sobre todo en machos.'
@@ -182,7 +187,7 @@ const situaciones = [
       'Pon un rascador firme y alto junto al mueble que rasguña.',
       'Prueba distintas texturas, como cuerda de sisal o cartón.',
       'Prémialo cada vez que use el rascador.',
-      'Cubre el mueble por un tiempo con cinta doble cara o una manta.'
+      'Cubre temporalmente el mueble con una protección segura.'
     ],
     evitar: [
       'Gritarle o rociarlo con agua.',
@@ -203,9 +208,9 @@ const situaciones = [
       'Los gatos son más activos al amanecer y al anochecer. En un lugar nuevo, además, pueden estar inquietos.',
     hacer: [
       'Juega activamente con él unos 15 minutos antes de dormir.',
-      'Dale la última comida justo antes de acostarte.',
+      'Organiza horarios constantes de alimentación.',
       'Déjale juguetes, un rascador y una ventana segura donde mirar.',
-      'No le respondas cuando maúlla pidiendo atención, y premia los momentos de calma.'
+      'Refuerza los momentos de calma y procura mantener rutinas estables.'
     ],
     evitar: [
       'Darle comida cada vez que maúlla de noche.',
@@ -223,7 +228,7 @@ const situaciones = [
     titulo: 'Bufa, gruñe o araña',
     resumen: 'Se pone a la defensiva cuando te acercas',
     porQue:
-      'Es su forma de pedir espacio cuando se siente amenazado. Casi siempre es miedo, no maldad.',
+      'Es su forma de pedir espacio cuando se siente amenazado. Frecuentemente se relaciona con miedo o inseguridad.',
     hacer: [
       'Dale espacio y aléjate con calma cuando bufe.',
       'Evita mirarlo fijo y agáchate de lado para parecer menos amenazante.',
@@ -241,42 +246,78 @@ const situaciones = [
   }
 ]
 
-// COMPONENTE
+// ==========================================
+// COMPONENTE PRINCIPAL
+// ==========================================
 
-function AsistenteConductas({ irAlDiario, situacionInicial = null }) {
+function AsistenteConductas({
+  irAlDiario,
+  situacionInicial = null
+}) {
   const [tipo, setTipo] = useState('perro')
-  const [seleccionada, setSeleccionada] = useState(situacionInicial)
+
+  const [seleccionada, setSeleccionada] = useState(
+    situacionInicial
+  )
+
   const [probados, setProbados] = useState({})
+
   const panelRef = useRef(null)
 
-  const visibles = situaciones.filter((situacion) =>
-    situacion.tipos.includes(tipo)
+  // ==========================================
+  // FILTRAR SEGÚN PERRO O GATO
+  // ==========================================
+
+  const visibles = situaciones.filter(
+    (situacion) => situacion.tipos.includes(tipo)
   )
 
   const actual =
-    visibles.find((situacion) => situacion.id === seleccionada) || null
+    visibles.find(
+      (situacion) => situacion.id === seleccionada
+    ) || null
+
+  // ==========================================
+  // PROGRESO DE LOS PASOS
+  // ==========================================
 
   const total = actual ? actual.hacer.length : 0
+
   const hechos = actual
-    ? actual.hacer.filter((_, indice) => probados[`${actual.id}-${indice}`])
-        .length
+    ? actual.hacer.filter(
+        (_, indice) =>
+          probados[`${actual.id}-${indice}`]
+      ).length
     : 0
+
+  // ==========================================
+  // ELEGIR SITUACIÓN
+  // ==========================================
 
   function elegirSituacion(id) {
     setSeleccionada(id)
 
-    // En pantallas pequeñas, lleva la vista al detalle
-    if (window.matchMedia('(max-width: 860px)').matches) {
+    if (
+      window.matchMedia('(max-width: 860px)').matches
+    ) {
       const sinMovimiento = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
       ).matches
 
-      panelRef.current?.scrollIntoView({
-        behavior: sinMovimiento ? 'auto' : 'smooth',
-        block: 'start'
+      requestAnimationFrame(() => {
+        panelRef.current?.scrollIntoView({
+          behavior: sinMovimiento
+            ? 'auto'
+            : 'smooth',
+          block: 'start'
+        })
       })
     }
   }
+
+  // ==========================================
+  // MARCAR PASOS
+  // ==========================================
 
   function marcarPaso(clave) {
     setProbados((anteriores) => ({
@@ -285,52 +326,122 @@ function AsistenteConductas({ irAlDiario, situacionInicial = null }) {
     }))
   }
 
+  // ==========================================
+  // CAMBIAR TIPO DE MASCOTA
+  // ==========================================
+
+  function cambiarTipo(nuevoTipo) {
+    setTipo(nuevoTipo)
+    setSeleccionada(null)
+  }
+
+  // ==========================================
+  // RENDERIZAR COMPONENTE
+  // ==========================================
+
   return (
-    <section className="asistente-section" id="guia-practica">
+    <section
+      className="asistente-section"
+      id="guia-practica"
+    >
       <div className="asistente-container">
-        <header className="asistente-heading">
-          <span className="section-tag">GUÍA PRÁCTICA</span>
 
-          <h2>Y si tu mascota hace esto, ¿qué hago?</h2>
+        {/* =====================================
+            NUEVO ENCABEZADO CON FOTOGRAFÍA
+        ===================================== */}
 
-          <p>
-            Ya conoces el significado de sus conductas. Ahora elige una
-            situación para ver qué puedes hacer, qué conviene evitar y
-            cuándo consultar.
-          </p>
-        </header>
+        <div className="conductas-hero">
 
-        <div
-          className="asistente-tipo"
-          role="group"
-          aria-label="Tipo de mascota"
-        >
-          {[
-            ['perro', '🐶 Perro'],
-            ['gato', '🐱 Gato']
-          ].map(([valor, etiqueta]) => (
-            <button
-              key={valor}
-              type="button"
-              className={
-                tipo === valor
-                  ? 'asistente-tipo-btn activo'
-                  : 'asistente-tipo-btn'
-              }
-              aria-pressed={tipo === valor}
-              onClick={() => setTipo(valor)}
+          {/* TEXTO IZQUIERDO */}
+
+          <div className="conductas-hero-texto">
+
+            <span className="conductas-badge">
+              GUÍA INTERACTIVA
+            </span>
+
+            <h2>
+              Descubre qué necesita tu mascota
+            </h2>
+
+            <p>
+              ¿Tu mascota se esconde, muerde,
+              llora o tiene dificultades para adaptarse?
+              Aprende cómo acompañarla con consejos
+              prácticos para cada situación.
+            </p>
+
+            {/* ETIQUETAS */}
+
+            <div className="conductas-chips">
+              <span>Consejos prácticos</span>
+              <span>Adaptación al hogar</span>
+              <span>Bienestar animal</span>
+            </div>
+
+            {/* SELECTOR PERRO / GATO */}
+
+            <div
+              className="selector-tipo"
+              role="group"
+              aria-label="Tipo de mascota"
             >
-              {etiqueta}
-            </button>
-          ))}
+              <button
+                type="button"
+                className={
+                  tipo === 'perro'
+                    ? 'activo'
+                    : ''
+                }
+                aria-pressed={tipo === 'perro'}
+                onClick={() => cambiarTipo('perro')}
+              >
+                🐶 Perro
+              </button>
+
+              <button
+                type="button"
+                className={
+                  tipo === 'gato'
+                    ? 'activo'
+                    : ''
+                }
+                aria-pressed={tipo === 'gato'}
+                onClick={() => cambiarTipo('gato')}
+              >
+                🐱 Gato
+              </button>
+            </div>
+
+          </div>
+
+          {/* FOTOGRAFÍA DERECHA */}
+
+          <div className="conductas-hero-imagen">
+            <img
+              src={conductaHero}
+              alt="Perro y gato acompañados durante su adaptación"
+            />
+          </div>
+
         </div>
 
+        {/* =====================================
+            LISTA Y PANEL INTERACTIVO
+            SE CONSERVA SU FUNCIONAMIENTO
+        ===================================== */}
+
         <div className="asistente-layout">
+
           {/* LISTA DE SITUACIONES */}
 
-          <ul className="asistente-lista" aria-label="Situaciones frecuentes">
+          <ul
+            className="asistente-lista"
+            aria-label="Situaciones frecuentes"
+          >
             {visibles.map((situacion) => (
               <li key={situacion.id}>
+
                 <button
                   type="button"
                   className={
@@ -338,39 +449,75 @@ function AsistenteConductas({ irAlDiario, situacionInicial = null }) {
                       ? 'asistente-situacion activa'
                       : 'asistente-situacion'
                   }
-                  aria-pressed={seleccionada === situacion.id}
-                  onClick={() => elegirSituacion(situacion.id)}
+                  aria-pressed={
+                    seleccionada === situacion.id
+                  }
+                  onClick={() =>
+                    elegirSituacion(situacion.id)
+                  }
                 >
-                  <span className="asistente-emoji" aria-hidden="true">
+
+                  <span
+                    className="asistente-emoji"
+                    aria-hidden="true"
+                  >
                     {situacion.emoji}
                   </span>
 
                   <span>
-                    <strong>{situacion.titulo}</strong>
-                    <small>{situacion.resumen}</small>
+                    <strong>
+                      {situacion.titulo}
+                    </strong>
+
+                    <small>
+                      {situacion.resumen}
+                    </small>
                   </span>
+
                 </button>
+
               </li>
             ))}
           </ul>
 
-          {/* DETALLE */}
+          {/* =====================================
+              PANEL DE DETALLE
+          ===================================== */}
 
-          <div className="asistente-panel" ref={panelRef} aria-live="polite">
+          <div
+            className="asistente-panel"
+            ref={panelRef}
+            aria-live="polite"
+          >
+
             {actual ? (
+
               <article key={actual.id}>
-                <h3>{actual.titulo}</h3>
+
+                <h3>
+                  {actual.titulo}
+                </h3>
 
                 <p className="asistente-porque">
-                  <strong>Por qué puede pasar:</strong> {actual.porQue}
+                  <strong>
+                    Por qué puede pasar:
+                  </strong>{' '}
+                  {actual.porQue}
                 </p>
 
+                {/* QUÉ PUEDES HACER */}
+
                 <section className="asistente-bloque">
-                  <h4>Qué puedes hacer</h4>
+
+                  <h4>
+                    Qué puedes hacer
+                  </h4>
 
                   <p className="asistente-ayuda">
                     Marca cada paso cuando lo hayas probado.
                   </p>
+
+                  {/* BARRA DE PROGRESO */}
 
                   <div
                     className="asistente-progreso"
@@ -380,98 +527,191 @@ function AsistenteConductas({ irAlDiario, situacionInicial = null }) {
                     aria-valuemax={total}
                     aria-valuenow={hechos}
                   >
-                    <span style={{ width: `${(hechos / total) * 100}%` }} />
+                    <span
+                      style={{
+                        width: total
+                          ? `${(hechos / total) * 100}%`
+                          : '0%'
+                      }}
+                    />
                   </div>
 
                   <p className="asistente-contador">
                     {hechos} de {total} pasos probados
                   </p>
 
-                  <ul className="asistente-pasos">
-                    {actual.hacer.map((paso, indice) => {
-                      const clave = `${actual.id}-${indice}`
+                  {/* CASILLAS DE VERIFICACIÓN */}
 
-                      return (
-                        <li key={clave}>
-                          <label>
-                            <input
-                              type="checkbox"
-                              checked={Boolean(probados[clave])}
-                              onChange={() => marcarPaso(clave)}
-                            />
-                            <span>{paso}</span>
-                          </label>
-                        </li>
-                      )
-                    })}
+                  <ul className="asistente-pasos">
+
+                    {actual.hacer.map(
+                      (paso, indice) => {
+                        const clave =
+                          `${actual.id}-${indice}`
+
+                        return (
+                          <li key={clave}>
+
+                            <label>
+                              <input
+                                type="checkbox"
+                                checked={Boolean(
+                                  probados[clave]
+                                )}
+                                onChange={() =>
+                                  marcarPaso(clave)
+                                }
+                              />
+
+                              <span>
+                                {paso}
+                              </span>
+                            </label>
+
+                          </li>
+                        )
+                      }
+                    )}
+
                   </ul>
+
+                  {/* MENSAJE AL COMPLETAR */}
 
                   {hechos === total && (
                     <p className="asistente-exito">
-                      Ya probaste todos los pasos. Dale unos días: los
-                      cambios de conducta toman tiempo. Si no ves mejoras,
+                      Ya probaste todos los pasos.
+                      Los cambios de conducta pueden
+                      tomar tiempo. Si no ves mejoras,
                       consulta con un profesional.
                     </p>
                   )}
+
                 </section>
 
+                {/* =====================================
+                    QUÉ CONVIENE EVITAR
+                ===================================== */}
+
                 <section className="asistente-bloque asistente-evitar">
-                  <h4>Qué conviene evitar</h4>
+
+                  <h4>
+                    Qué conviene evitar
+                  </h4>
 
                   <ul>
                     {actual.evitar.map((texto) => (
-                      <li key={texto}>{texto}</li>
+                      <li key={texto}>
+                        {texto}
+                      </li>
                     ))}
                   </ul>
+
                 </section>
 
+                {/* =====================================
+                    CUÁNDO CONSULTAR
+                ===================================== */}
+
                 <section className="asistente-bloque asistente-vet">
-                  <h4>Cuándo consultar al veterinario</h4>
+
+                  <h4>
+                    Cuándo consultar al veterinario
+                  </h4>
 
                   <ul>
-                    {actual.veterinario.map((texto) => (
-                      <li key={texto}>{texto}</li>
-                    ))}
+                    {actual.veterinario.map(
+                      (texto) => (
+                        <li key={texto}>
+                          {texto}
+                        </li>
+                      )
+                    )}
                   </ul>
+
+                  {/* ADVERTENCIA URGENTE */}
 
                   {actual.urgencia && (
                     <p className="asistente-urgencia">
-                      <strong>Urgente:</strong> {actual.urgencia}
+
+                      <strong>
+                        Urgente:
+                      </strong>{' '}
+
+                      {actual.urgencia}
+
                     </p>
                   )}
+
                 </section>
 
+                {/* =====================================
+                    ENLACE CON EL DIARIO
+                ===================================== */}
+
                 {irAlDiario && (
+
                   <div className="asistente-cierre">
+
                     <p>
-                      Anota en el diario cómo responde cada día para ver su
-                      evolución.
+                      Anota en el diario cómo responde
+                      cada día para ver su evolución.
                     </p>
 
-                    <button type="button" onClick={irAlDiario}>
+                    <button
+                      type="button"
+                      onClick={irAlDiario}
+                    >
                       Ir al diario
                     </button>
+
                   </div>
+
                 )}
+
               </article>
+
             ) : (
+
+              /* =====================================
+                  ESTADO SIN SELECCIÓN
+              ===================================== */
+
               <div className="asistente-vacio">
-                <span aria-hidden="true">🐾</span>
-                <h3>Elige una situación</h3>
+
+                <span aria-hidden="true">
+                  🐾
+                </span>
+
+                <h3>
+                  Elige una situación
+                </h3>
+
                 <p>
-                  Te mostraremos pasos concretos para acompañar a tu{' '}
-                  {tipo === 'perro' ? 'perro' : 'gato'}.
+                  Te mostraremos pasos concretos
+                  para acompañar a tu{' '}
+                  {tipo === 'perro'
+                    ? 'perro'
+                    : 'gato'}.
                 </p>
+
               </div>
+
             )}
+
           </div>
         </div>
 
+        {/* =====================================
+            NOTA INFORMATIVA
+        ===================================== */}
+
         <p className="asistente-nota">
-          Esta información es orientativa y no reemplaza la evaluación de un
-          veterinario. Si tu mascota empeora o notas algo que te preocupa,
-          busca atención profesional.
+          Esta información es orientativa y no
+          reemplaza la evaluación de un veterinario.
+          Si tu mascota empeora o notas algo que
+          te preocupa, busca atención profesional.
         </p>
+
       </div>
     </section>
   )
