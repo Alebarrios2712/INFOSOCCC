@@ -2132,3 +2132,465 @@ button.card-link {
     width: 100%;
   }
 }
+
+/* ==========================================
+   NUEVO LOGO - HUELLA SEGURA
+========================================== */
+
+.navbar-logo-boton {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  box-shadow: none;
+}
+
+.navbar-logo-boton:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.navbar-logo-boton:focus-visible {
+  outline: 3px solid #F26D5B;
+  outline-offset: 5px;
+  border-radius: 8px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 47px;
+  height: 47px;
+
+  background: linear-gradient(
+    135deg,
+    #F58B73,
+    #F26D5B
+  );
+
+  border-radius: 15px;
+
+  box-shadow: 0 5px 12px rgba(
+    242, 109, 91, 0.17
+  );
+}
+
+.navbar-logo-badge svg {
+  display: block;
+  width: 29px;
+  height: 29px;
+}
+
+.navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navbar-brand-title {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 21px;
+  font-weight: 900;
+  line-height: 1;
+  color: #493832;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.navbar-brand-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #B87968;
+  white-space: nowrap;
+}
+
+/* Adaptación para pantallas pequeñas */
+
+@media (max-width: 700px) {
+  .navbar-logo-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .navbar-logo-badge svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .navbar-brand-title {
+    font-size: 18px;
+  }
+
+  .navbar-brand-subtitle {
+    font-size: 8px;
+    letter-spacing: 0.2px;
+  }
+
+  .navbar-brand {
+    gap: 9px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE GLOBAL - HUELLA SEGURA
+========================================== */
+
+/* Evitar desbordamientos */
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero,
+.options,
+.info-page,
+.diario-page {
+  width: 100%;
+}
+
+.hero-content,
+.hero-image,
+.info-container,
+.diario-container {
+  min-width: 0;
+}
+
+/* Navegación adaptable */
+
+.navbar {
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.navbar nav {
+  min-width: 0;
+  justify-content: flex-end;
+}
+
+.navbar nav button {
+  min-height: 44px;
+}
+
+/* ==========================================
+   TABLETS
+========================================== */
+
+@media (max-width: 1024px) {
+
+  .navbar {
+    padding: 16px 4%;
+    gap: 14px;
+  }
+
+  .navbar nav {
+    gap: 8px 14px;
+  }
+
+  .navbar nav button {
+    font-size: 15px;
+  }
+
+  .hero {
+    padding: 56px 6%;
+    gap: 32px;
+  }
+
+  .info-page,
+  .diario-page {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+}
+
+/* ==========================================
+   TABLETS PEQUEÑAS
+========================================== */
+
+@media (max-width: 800px) {
+
+  /* Navegación */
+
+  .navbar {
+    justify-content: center;
+  }
+
+  .navbar nav {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  /* Portada */
+
+  .hero {
+    min-height: auto;
+    flex-direction: column;
+    text-align: center;
+    padding: 48px 6%;
+  }
+
+  .hero-content {
+    max-width: 680px;
+  }
+
+  .hero p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-image {
+    width: 100%;
+  }
+
+  .hero-image img {
+    width: min(100%, 420px);
+    max-height: 360px;
+  }
+
+  .hero-acciones {
+    justify-content: center;
+  }
+
+  /* Primeros días */
+
+  .info-hero-familia {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .info-hero-familia .info-heading {
+    text-align: center;
+  }
+
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 700px) {
+
+  /* BARRA DE NAVEGACIÓN */
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 5%;
+    gap: 14px;
+  }
+
+  .navbar-brand {
+    justify-content: center;
+  }
+
+  .navbar nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 8px;
+  }
+
+  .navbar nav button {
+    font-size: 13px;
+    padding: 9px 7px;
+  }
+
+  .navbar nav .nav-mascota {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  .navbar-brand-title {
+    font-size: 18px;
+  }
+
+  /* PORTADA */
+
+  .hero {
+    padding: 42px 5%;
+    gap: 25px;
+  }
+
+  .hero h1 {
+    font-size: clamp(30px, 8vw, 42px);
+  }
+
+  .hero p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .hero-image img {
+    max-width: 100%;
+  }
+
+  .hero-acciones {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .hero-acciones button {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* TARJETAS */
+
+  .options {
+    padding: 55px 5% 70px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 18px;
+  }
+
+  .card {
+    width: 100%;
+    padding: 26px 22px;
+  }
+
+  /* PÁGINAS INFORMATIVAS */
+
+  .info-page {
+    padding: 30px 5% 60px;
+  }
+
+  .info-heading h1 {
+    font-size: clamp(30px, 8vw, 40px);
+  }
+
+  .info-heading p {
+    font-size: 16px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-card {
+    padding: 24px 20px;
+  }
+
+  .info-tip {
+    padding: 22px 18px;
+  }
+
+  .info-hero-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  /* DIARIO */
+
+  .diario-page {
+    padding: 34px 5% 60px;
+  }
+
+  .diario-card {
+    padding: 24px 18px;
+  }
+
+  .diario-heading h1 {
+    font-size: clamp(30px, 8vw, 40px);
+  }
+
+  .diario-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .diario-options {
+    flex-direction: column;
+  }
+
+  .diario-option {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* HISTORIAL */
+
+  .historial-card {
+    padding: 20px 16px;
+  }
+
+  .historial-datos {
+    grid-template-columns: 1fr;
+  }
+
+  .historial-heading {
+    align-items: flex-start;
+  }
+
+  .diario-danger-zone {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+/* ==========================================
+   CELULARES PEQUEÑOS
+========================================== */
+
+@media (max-width: 380px) {
+
+  .navbar {
+    padding: 12px 3%;
+  }
+
+  .navbar nav {
+    gap: 4px 5px;
+  }
+
+  .navbar nav button {
+    font-size: 12px;
+    padding: 8px 5px;
+  }
+
+  .navbar-brand-title {
+    font-size: 16px;
+  }
+
+  .hero {
+    padding: 35px 5%;
+  }
+
+  .card {
+    padding: 22px 18px;
+  }
+
+  .info-card {
+    padding: 20px 16px;
+  }
+
+}
