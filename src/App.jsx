@@ -20,6 +20,80 @@ import AlertasEmergencia from './components/AlertasEmergencia'
 import PrimerosDias from './components/PrimerosDias'
 
 // ==========================================
+// NUEVO LOGO HUELLA SEGURA
+// ==========================================
+
+function LogoHuella() {
+  return (
+    <div className="navbar-brand">
+      <span
+        className="navbar-logo-badge"
+        aria-hidden="true"
+      >
+        <svg
+          width="29"
+          height="29"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <ellipse
+            cx="13"
+            cy="23"
+            rx="5.5"
+            ry="8"
+            transform="rotate(-20 13 23)"
+            fill="white"
+          />
+
+          <ellipse
+            cx="27"
+            cy="13"
+            rx="5.5"
+            ry="8"
+            transform="rotate(-8 27 13)"
+            fill="white"
+          />
+
+          <ellipse
+            cx="41"
+            cy="15"
+            rx="5.5"
+            ry="8"
+            transform="rotate(12 41 15)"
+            fill="white"
+          />
+
+          <ellipse
+            cx="53"
+            cy="27"
+            rx="5.5"
+            ry="8"
+            transform="rotate(25 53 27)"
+            fill="white"
+          />
+
+          <path
+            d="M32 27C25 27 22 34 17 39C13 43 11 46 11 50C11 55 15 58 20 58C25 58 28 54 32 54C36 54 39 58 44 58C49 58 53 55 53 50C53 46 51 43 47 39C42 34 39 27 32 27Z"
+            fill="white"
+          />
+        </svg>
+      </span>
+
+      <span className="navbar-brand-text">
+        <span className="navbar-brand-title">
+          Huella Segura
+        </span>
+
+        <span className="navbar-brand-subtitle">
+          Acompañando nuevas historias
+        </span>
+      </span>
+    </div>
+  )
+}
+
+// ==========================================
 // ICONOS DE LAS TARJETAS
 // ==========================================
 
@@ -67,15 +141,14 @@ function Icono({ tipo }) {
 
 function App() {
   const [pagina, setPagina] = useState('inicio')
-
-  // Controla si el Quiz de Adopción está visible
   const [mostrarQuiz, setMostrarQuiz] = useState(false)
 
   // ==========================================
-  // ABRIR EL QUIZ DE ADOPCIÓN
+  // ABRIR QUIZ DE ADOPCIÓN
   // ==========================================
 
   function iniciarTest() {
+    setPagina('inicio')
     setMostrarQuiz(true)
 
     requestAnimationFrame(() => {
@@ -91,7 +164,7 @@ function App() {
   }
 
   // ==========================================
-  // CERRAR EL QUIZ
+  // CERRAR QUIZ
   // ==========================================
 
   function cerrarTest() {
@@ -99,7 +172,7 @@ function App() {
   }
 
   // ==========================================
-  // NAVEGACIÓN
+  // NAVEGACIÓN ENTRE SECCIONES
   // ==========================================
 
   function navegar(destino) {
@@ -113,7 +186,7 @@ function App() {
   }
 
   // ==========================================
-  // IR A LAS TARJETAS DE INICIO
+  // IR A LAS GUÍAS PRINCIPALES
   // ==========================================
 
   function irAGuia() {
@@ -133,7 +206,7 @@ function App() {
   }
 
   // ==========================================
-  // TARJETAS PRINCIPALES
+  // TARJETAS DE INICIO
   // ==========================================
 
   const tarjetas = [
@@ -161,7 +234,7 @@ function App() {
   ]
 
   // ==========================================
-  // ESTRUCTURA DE LA PÁGINA
+  // ESTRUCTURA PRINCIPAL
   // ==========================================
 
   return (
@@ -173,60 +246,18 @@ function App() {
 
       <header className="navbar">
 
-        {/* LOGO */}
+        {/* NUEVO LOGO */}
 
         <button
-          className="logo logo-button"
           type="button"
+          className="navbar-logo-boton"
           onClick={() => navegar('inicio')}
           aria-label="Huella Segura - Ir al inicio"
         >
-          <span
-            className="logo-icon"
-            aria-hidden="true"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="25"
-              height="25"
-              fill="currentColor"
-            >
-              <ellipse
-                cx="5.2"
-                cy="7"
-                rx="1.9"
-                ry="2.6"
-              />
-
-              <ellipse
-                cx="10"
-                cy="4.7"
-                rx="1.9"
-                ry="2.6"
-              />
-
-              <ellipse
-                cx="15"
-                cy="5.1"
-                rx="1.9"
-                ry="2.6"
-              />
-
-              <ellipse
-                cx="19.3"
-                cy="8.6"
-                rx="1.8"
-                ry="2.5"
-              />
-
-              <path d="M12 10.4c-2.2 0-3.3 1.5-4.7 3.1-1.1 1.2-2.6 2.4-2.6 4.1-1.1 1.2-2.6 2.4-2.6 4.1 0 1.8 1.4 3 3.2 3 1.5 0 2.7-.8 4.1-.8s2.6.8 4.1.8c1.8 0 3.2-1.2 3.2-3 0-1.7-1.5-2.9-2.6-4.1-1.4-1.6-2.5-3.1-4.7-3.1z" />
-            </svg>
-          </span>
-
-          <span>Huella Segura</span>
+          <LogoHuella />
         </button>
 
-        {/* MENÚ PRINCIPAL */}
+        {/* NAVEGACIÓN */}
 
         <nav aria-label="Navegación principal">
 
@@ -329,7 +360,7 @@ function App() {
                   reconocer cuándo necesita ayuda.
                 </p>
 
-                {/* BOTONES DE LA PORTADA */}
+                {/* BOTONES DE INICIO */}
 
                 <div
                   className="hero-acciones"
@@ -383,8 +414,6 @@ function App() {
                 }}
               >
 
-                {/* BOTÓN PARA CERRAR */}
-
                 <div
                   style={{
                     display: 'flex',
@@ -409,19 +438,16 @@ function App() {
                   </button>
                 </div>
 
-                {/* COMPONENTE DEL QUIZ */}
-
                 <QuizAdopcion
                   irAPrimeros={() => navegar('primeros')}
                   irAlDiario={() => navegar('diario')}
                 />
 
               </div>
-
             )}
 
             {/* =====================================
-                GUÍAS PRINCIPALES
+                TARJETAS DE LA PORTADA
             ===================================== */}
 
             <section
@@ -481,7 +507,6 @@ function App() {
                     </button>
 
                   </article>
-
                 ))}
 
               </div>
@@ -516,8 +541,7 @@ function App() {
         ) : pagina === 'conductas' ? (
 
           /* =====================================
-              NUEVO CHAT INTERACTIVO
-              DE CONDUCTAS
+              CHAT INTERACTIVO
           ===================================== */
 
           <section className="info-page info-conductas">
@@ -599,7 +623,6 @@ function App() {
         ) : null}
 
       </main>
-
     </div>
   )
 }

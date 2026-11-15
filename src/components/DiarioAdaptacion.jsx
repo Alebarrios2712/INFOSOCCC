@@ -1,12 +1,82 @@
+
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import './DiarioAdaptacion.css'
+
+// ==========================================
+// ILUSTRACIONES DE EMOCIONES
+// ==========================================
+
+import perroFeliz from '../assets/emociones/perro-feliz.png'
+import perroNervioso from '../assets/emociones/perro-nervioso.png'
+import perroTranquilo from '../assets/emociones/perro-tranquilo.png'
+import perroAsustado from '../assets/emociones/perro-asustado.png'
+
+import gatoFeliz from '../assets/emociones/gato-feliz.png'
+import gatoNervioso from '../assets/emociones/gato-nervioso.png'
+import gatoTranquilo from '../assets/emociones/gato-tranquilo.png'
+import gatoAsustado from '../assets/emociones/gato-asustado.png'
+
+// ==========================================
+// EMOCIONES
+// Se conservan los valores anteriores de
+// Supabase para no perder compatibilidad.
+// ==========================================
+
+const emociones = [
+  {
+    valor: '😄',
+    nombre: 'Feliz'
+  },
+  {
+    valor: '😐',
+    nombre: 'Nervioso'
+  },
+  {
+    valor: '🙂',
+    nombre: 'Tranquilo'
+  },
+  {
+    valor: '😟',
+    nombre: 'Asustado'
+  }
+]
+
+// ==========================================
+// IMÁGENES SEGÚN ESPECIE
+// ==========================================
+
+const imagenesEmociones = {
+  perro: {
+    '😄': perroFeliz,
+    '😐': perroNervioso,
+    '🙂': perroTranquilo,
+    '😟': perroAsustado
+  },
+
+  gato: {
+    '😄': gatoFeliz,
+    '😐': gatoNervioso,
+    '🙂': gatoTranquilo,
+    '😟': gatoAsustado
+  }
+}
+
+// ==========================================
+// COMPONENTE PRINCIPAL
+// ==========================================
 
 function DiarioAdaptacion() {
+
+  // DATOS DE LA MASCOTA
+
   const [nombre, setNombre] = useState('')
   const [tipo, setTipo] = useState('perro')
   const [fechaLlegada, setFechaLlegada] = useState('')
 
   const [diarioCreado, setDiarioCreado] = useState(false)
+
+  // REGISTRO DIARIO
 
   const [animo, setAnimo] = useState('')
   const [comio, setComio] = useState('')
@@ -14,13 +84,39 @@ function DiarioAdaptacion() {
   const [interactuo, setInteractuo] = useState('')
   const [observacion, setObservacion] = useState('')
 
+  // ESTADOS GENERALES
+
   const [mensaje, setMensaje] = useState('')
   const [registros, setRegistros] = useState([])
   const [cargando, setCargando] = useState(false)
 
+  // ==========================================
+  // OBTENER IMAGEN SEGÚN LA ESPECIE
+  // ==========================================
+
+  const especieImagen =
+    String(tipo || 'perro').toLowerCase() === 'gato'
+      ? 'gato'
+      : 'perro'
+
+  function obtenerImagenAnimo(valor) {
+    return imagenesEmociones[especieImagen]?.[valor] || null
+  }
+
+  function obtenerNombreAnimo(valor) {
+    return (
+      emociones.find(
+        (emocion) => emocion.valor === valor
+      )?.nombre || 'Estado registrado'
+    )
+  }
+
+  // ==========================================
   // CARGAR MASCOTA Y REGISTROS DESDE SUPABASE
+  // ==========================================
 
   useEffect(() => {
+
     const mascotaIdGuardado =
       localStorage.getItem('huellaMascotaId')
 
@@ -29,16 +125,20 @@ function DiarioAdaptacion() {
     }
 
     async function cargarDatos() {
+
       setCargando(true)
 
-      const { data: mascota, error: errorMascota } =
-        await supabase
-          .from('mascotas')
-          .select('*')
-          .eq('id', Number(mascotaIdGuardado))
-          .single()
+      const {
+        data: mascota,
+        error: errorMascota
+      } = await supabase
+        .from('mascotas')
+        .select('*')
+        .eq('id', Number(mascotaIdGuardado))
+        .single()
 
       if (errorMascota) {
+
         console.error(
           'Error cargando mascota:',
           errorMascota
@@ -73,6 +173,7 @@ function DiarioAdaptacion() {
         })
 
       if (errorRegistros) {
+
         console.error(
           'Error cargando registros:',
           errorRegistros
@@ -88,15 +189,20 @@ function DiarioAdaptacion() {
     }
 
     cargarDatos()
+
   }, [])
 
+  // ==========================================
   // CREAR DIARIO
+  // ==========================================
 
   async function crearDiario() {
+
     if (
       nombre.trim() === '' ||
       fechaLlegada === ''
     ) {
+
       setMensaje(
         'Completa el nombre y la fecha de llegada.'
       )
@@ -118,6 +224,7 @@ function DiarioAdaptacion() {
       .single()
 
     if (error) {
+
       console.error(
         'Error creando mascota:',
         error
@@ -146,15 +253,19 @@ function DiarioAdaptacion() {
     setCargando(false)
   }
 
+  // ==========================================
   // GUARDAR REGISTRO DEL DÍA
+  // ==========================================
 
   async function guardarRegistro() {
+
     if (
       animo === '' ||
       comio === '' ||
       exploro === '' ||
       interactuo === ''
     ) {
+
       setMensaje(
         'Completa todas las opciones antes de guardar.'
       )
@@ -166,6 +277,7 @@ function DiarioAdaptacion() {
       localStorage.getItem('huellaMascotaId')
 
     if (!mascotaIdGuardado) {
+
       setMensaje(
         'No se encontró la mascota asociada al diario.'
       )
@@ -190,6 +302,7 @@ function DiarioAdaptacion() {
       .single()
 
     if (error) {
+
       console.error(
         'Error guardando registro:',
         error
@@ -222,9 +335,12 @@ function DiarioAdaptacion() {
     setCargando(false)
   }
 
+  // ==========================================
   // ELIMINAR REGISTRO
+  // ==========================================
 
   async function eliminarRegistro(id) {
+
     const confirmar = window.confirm(
       '¿Quieres eliminar este registro?'
     )
@@ -239,6 +355,7 @@ function DiarioAdaptacion() {
       .eq('id', id)
 
     if (error) {
+
       console.error(
         'Error eliminando registro:',
         error
@@ -258,9 +375,12 @@ function DiarioAdaptacion() {
     )
   }
 
+  // ==========================================
   // BORRAR TODO EL DIARIO
+  // ==========================================
 
   async function borrarDiario() {
+
     const confirmar = window.confirm(
       '¿Seguro que quieres eliminar todo el diario? Esta acción no se puede deshacer.'
     )
@@ -287,6 +407,7 @@ function DiarioAdaptacion() {
       )
 
     if (error) {
+
       console.error(
         'Error eliminando diario:',
         error
@@ -323,9 +444,12 @@ function DiarioAdaptacion() {
     setCargando(false)
   }
 
+  // ==========================================
   // CALCULAR DÍA DE ADAPTACIÓN
+  // ==========================================
 
   function calcularDiaAdaptacion() {
+
     if (!fechaLlegada) {
       return 1
     }
@@ -351,9 +475,12 @@ function DiarioAdaptacion() {
     return dias < 1 ? 1 : dias
   }
 
+  // ==========================================
   // FORMATEAR FECHA DE LLEGADA
+  // ==========================================
 
   function formatearFecha(fecha) {
+
     if (!fecha) {
       return ''
     }
@@ -371,9 +498,12 @@ function DiarioAdaptacion() {
     )
   }
 
+  // ==========================================
   // FORMATEAR FECHA DE REGISTRO
+  // ==========================================
 
   function formatearFechaRegistro(fecha) {
+
     if (!fecha) {
       return ''
     }
@@ -390,9 +520,12 @@ function DiarioAdaptacion() {
     )
   }
 
+  // ==========================================
   // CALCULAR RESUMEN DE ÁNIMO
+  // ==========================================
 
   function obtenerResumenAnimo() {
+
     if (registros.length === 0) {
       return null
     }
@@ -462,29 +595,46 @@ function DiarioAdaptacion() {
   const resumen =
     obtenerResumenAnimo()
 
+  // ==========================================
+  // CARGANDO
+  // ==========================================
+
   if (
     cargando &&
     !diarioCreado
   ) {
+
     return (
       <section className="diario-page">
+
         <div className="diario-container">
+
           <div className="diario-heading">
+
             <h1>
               Cargando diario...
             </h1>
+
           </div>
+
         </div>
+
       </section>
     )
   }
 
+  // ==========================================
+  // RENDERIZADO
+  // ==========================================
+
   return (
+
     <section className="diario-page">
 
       <div className="diario-container">
 
         {!diarioCreado ? (
+
           <>
             {/* CREACIÓN DEL DIARIO */}
 
@@ -576,9 +726,11 @@ function DiarioAdaptacion() {
               </div>
 
               {mensaje && (
+
                 <p className="diario-mensaje">
                   {mensaje}
                 </p>
+
               )}
 
               <button
@@ -593,9 +745,13 @@ function DiarioAdaptacion() {
               </button>
 
             </div>
+
           </>
+
         ) : (
+
           <>
+
             {/* ENCABEZADO */}
 
             <div className="diario-heading">
@@ -664,10 +820,17 @@ function DiarioAdaptacion() {
             {/* EVOLUCIÓN */}
 
             {resumen && (
+
               <div className="diario-evolucion">
 
                 <div className="evolucion-emoji">
-                  {resumen.emoji}
+
+                  <img
+                    src={obtenerImagenAnimo(resumen.emoji)}
+                    alt={obtenerNombreAnimo(resumen.emoji)}
+                    className="evolucion-imagen-emocion"
+                  />
+
                 </div>
 
                 <div>
@@ -690,11 +853,14 @@ function DiarioAdaptacion() {
                 </div>
 
               </div>
+
             )}
 
             {/* FORMULARIO DIARIO */}
 
             <div className="diario-card">
+
+              {/* ESTADO DE ÁNIMO */}
 
               <div className="diario-question">
 
@@ -702,28 +868,37 @@ function DiarioAdaptacion() {
                   ¿Cómo estuvo hoy?
                 </h2>
 
-                <div className="diario-options">
+                <div className="diario-options diario-emociones-grid">
 
-                  {[
-                    '😟',
-                    '😐',
-                    '🙂',
-                    '😄'
-                  ].map((opcion) => (
+                  {emociones.map((emocion) => (
 
                     <button
-                      key={opcion}
+                      key={emocion.valor}
                       type="button"
                       className={
-                        animo === opcion
-                          ? 'diario-option selected'
-                          : 'diario-option'
+                        animo === emocion.valor
+                          ? 'diario-option diario-emocion-card selected'
+                          : 'diario-option diario-emocion-card'
                       }
                       onClick={() =>
-                        setAnimo(opcion)
+                        setAnimo(emocion.valor)
                       }
+                      aria-pressed={
+                        animo === emocion.valor
+                      }
+                      aria-label={emocion.nombre}
                     >
-                      {opcion}
+
+                      <img
+                        src={obtenerImagenAnimo(emocion.valor)}
+                        alt=""
+                        className="diario-emocion-imagen"
+                      />
+
+                      <span className="diario-emocion-label">
+                        {emocion.nombre}
+                      </span>
+
                     </button>
 
                   ))}
@@ -731,6 +906,8 @@ function DiarioAdaptacion() {
                 </div>
 
               </div>
+
+              {/* COMIDA */}
 
               <div className="diario-question">
 
@@ -767,6 +944,8 @@ function DiarioAdaptacion() {
 
               </div>
 
+              {/* EXPLORACIÓN */}
+
               <div className="diario-question">
 
                 <h2>
@@ -802,6 +981,8 @@ function DiarioAdaptacion() {
 
               </div>
 
+              {/* INTERACCIÓN */}
+
               <div className="diario-question">
 
                 <h2>
@@ -825,9 +1006,7 @@ function DiarioAdaptacion() {
                           : 'diario-option'
                       }
                       onClick={() =>
-                        setInteractuo(
-                          opcion
-                        )
+                        setInteractuo(opcion)
                       }
                     >
                       {opcion}
@@ -838,6 +1017,8 @@ function DiarioAdaptacion() {
                 </div>
 
               </div>
+
+              {/* OBSERVACIONES */}
 
               <div className="diario-field">
 
@@ -860,9 +1041,11 @@ function DiarioAdaptacion() {
               </div>
 
               {mensaje && (
+
                 <p className="diario-mensaje">
                   {mensaje}
                 </p>
+
               )}
 
               <button
@@ -932,108 +1115,120 @@ function DiarioAdaptacion() {
 
                 <div className="historial-lista">
 
-                  {registros.map(
-                    (registro) => (
+                  {registros.map((registro) => (
 
-                      <article
-                        className="historial-card"
-                        key={registro.id}
-                      >
+                    <article
+                      className="historial-card"
+                      key={registro.id}
+                    >
 
-                        <div className="historial-top">
+                      <div className="historial-top">
 
-                          <div className="historial-animo">
-                            {registro.animo}
-                          </div>
+                        <div className="historial-animo">
 
-                          <div>
-
-                            <h3>
-                              {formatearFechaRegistro(
-                                registro.fecha
-                              )}
-                            </h3>
-
-                            <p>
-                              Registro diario
-                            </p>
-
-                          </div>
-
-                          <button
-                            type="button"
-                            className="historial-eliminar"
-                            onClick={() =>
-                              eliminarRegistro(
-                                registro.id
-                              )
-                            }
-                          >
-                            Eliminar
-                          </button>
+                          <img
+                            src={obtenerImagenAnimo(registro.animo)}
+                            alt={obtenerNombreAnimo(registro.animo)}
+                            className="historial-imagen-emocion"
+                          />
 
                         </div>
 
-                        <div className="historial-datos">
+                        <div>
 
-                          <div>
+                          <h3>
+                            {formatearFechaRegistro(
+                              registro.fecha
+                            )}
+                          </h3>
 
-                            <span>
-                              🍽️ Comida
-                            </span>
+                          <p>
+                            Registro diario
+                          </p>
 
-                            <strong>
-                              {registro.comio}
-                            </strong>
-
-                          </div>
-
-                          <div>
-
-                            <span>
-                              🏠 Exploración
-                            </span>
-
-                            <strong>
-                              {registro.exploro}
-                            </strong>
-
-                          </div>
-
-                          <div>
-
-                            <span>
-                              🤝 Interacción
-                            </span>
-
-                            <strong>
-                              {registro.interactuo}
-                            </strong>
-
-                          </div>
+                          <span className="historial-emocion-nombre">
+                            {obtenerNombreAnimo(registro.animo)}
+                          </span>
 
                         </div>
 
-                        {registro.observacion && (
+                        <button
+                          type="button"
+                          className="historial-eliminar"
+                          onClick={() =>
+                            eliminarRegistro(
+                              registro.id
+                            )
+                          }
+                        >
+                          Eliminar
+                        </button>
 
-                          <div className="historial-observacion">
+                      </div>
 
-                            <span>
-                              Observación
-                            </span>
+                      {/* DATOS DEL REGISTRO */}
 
-                            <p>
-                              {registro.observacion}
-                            </p>
+                      <div className="historial-datos">
 
-                          </div>
+                        <div>
 
-                        )}
+                          <span>
+                            🍽️ Comida
+                          </span>
 
-                      </article>
+                          <strong>
+                            {registro.comio}
+                          </strong>
 
-                    )
-                  )}
+                        </div>
+
+                        <div>
+
+                          <span>
+                            🏠 Exploración
+                          </span>
+
+                          <strong>
+                            {registro.exploro}
+                          </strong>
+
+                        </div>
+
+                        <div>
+
+                          <span>
+                            🤝 Interacción
+                          </span>
+
+                          <strong>
+                            {registro.interactuo}
+                          </strong>
+
+                        </div>
+
+                      </div>
+
+                      {/* OBSERVACIONES DEL HISTORIAL */}
+
+                      {registro.observacion && (
+
+                        <div className="historial-observacion">
+
+                          <span>
+                            Observación
+                          </span>
+
+                          <p>
+                            {registro.observacion}
+                          </p>
+
+                        </div>
+
+                      )}
+
+                    </article>
+
+                  ))}
 
                 </div>
 
@@ -1052,6 +1247,7 @@ function DiarioAdaptacion() {
               <button
                 type="button"
                 onClick={borrarDiario}
+                disabled={cargando}
               >
                 Eliminar diario
               </button>
@@ -1059,11 +1255,13 @@ function DiarioAdaptacion() {
             </div>
 
           </>
+
         )}
 
       </div>
 
     </section>
+
   )
 }
 
