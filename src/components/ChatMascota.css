@@ -1,0 +1,531 @@
+
+/* =====================================
+   CHAT CON MI MASCOTA
+   HUELLA SEGURA
+===================================== */
+
+.chatm-pagina {
+  background: #FFF8F4;
+  min-height: 85vh;
+  padding: 42px 5% 70px;
+  font-family: 'DM Sans', sans-serif;
+  color: #493832;
+}
+
+.chatm-pagina *,
+.chatm-pagina *::before,
+.chatm-pagina *::after {
+  box-sizing: border-box;
+}
+
+.chatm-contenedor {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.chatm-etiqueta {
+  display: block;
+  color: #B74632;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+/* ENCABEZADO */
+
+.chatm-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 28px;
+  padding: 30px;
+  border-radius: 24px;
+  background: linear-gradient(120deg, #FFF0E8, #EAF6F1);
+  margin-bottom: 35px;
+}
+
+.chatm-hero h1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(30px, 4vw, 45px);
+  line-height: 1.2;
+  margin: 12px 0;
+}
+
+.chatm-hero p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #655F5B;
+}
+
+.chatm-subtitulo {
+  display: inline-block;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.chatm-hero img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 19px;
+}
+
+/* HISTORIAS */
+
+.chatm-capitulos {
+  margin: 30px 0;
+}
+
+.chatm-capitulos h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 25px;
+  margin-bottom: 18px;
+}
+
+.chatm-capitulos-lista {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.chatm-capitulo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  min-height: 145px;
+  padding: 19px 10px;
+  background: #FFFFFF;
+  border: 2px solid #E9D9D0;
+  border-radius: 18px;
+  color: #493832;
+  text-align: center;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.chatm-capitulo > span {
+  font-size: 30px;
+}
+
+.chatm-capitulo small {
+  font-size: 11px;
+  color: #87746D;
+}
+
+.chatm-capitulo strong {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.chatm-capitulo:hover {
+  border-color: #F26D5B;
+}
+
+.chatm-capitulo.activo {
+  background: #FFF0E8;
+  border-color: #F26D5B;
+}
+
+/* VENTANA PRINCIPAL */
+
+.chatm-ventana {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1px solid #E9D9D0;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(73, 56, 50, 0.08);
+}
+
+/* CABECERA DEL CHAT */
+
+.chatm-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 17px 22px;
+  background: #493832;
+  color: #FFFFFF;
+}
+
+.chatm-avatar {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #FFF0E8;
+  font-size: 29px;
+}
+
+.chatm-cabecera-texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.chatm-cabecera h2 {
+  color: #FFFFFF;
+  margin: 0 0 4px;
+  font-size: 19px;
+}
+
+.chatm-cabecera-texto span {
+  font-size: 12px;
+  color: #EADDD6;
+}
+
+.chatm-capitulo-numero {
+  background: rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+  padding: 9px 13px;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* CONTEXTO */
+
+.chatm-contexto {
+  padding: 19px 24px;
+  background: #FFF0E8;
+  border-bottom: 1px solid #E9D9D0;
+}
+
+.chatm-contexto strong {
+  font-size: 16px;
+}
+
+.chatm-contexto p {
+  margin: 9px 0 0;
+  font-size: 14px;
+  color: #655F5B;
+  line-height: 1.65;
+}
+
+/* MENSAJES */
+
+.chatm-mensajes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 220px;
+  padding: 26px;
+  background: #F9F5F1;
+}
+
+.chatm-fila {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.chatm-fila.mascota {
+  justify-content: flex-start;
+}
+
+.chatm-fila.usuario {
+  justify-content: flex-end;
+}
+
+.chatm-mini-avatar {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #FFFFFF;
+  font-size: 21px;
+}
+
+.chatm-burbuja {
+  width: fit-content;
+  max-width: 78%;
+  border-radius: 18px;
+  border: 1px solid #E9D9D0;
+  background: #FFFFFF;
+  padding: 14px 17px;
+}
+
+.chatm-fila.usuario .chatm-burbuja {
+  background: #EAF6F1;
+  border-color: #CDE8D9;
+}
+
+.chatm-autor {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #B74632;
+}
+
+.chatm-fila.usuario .chatm-autor {
+  color: #23785F;
+}
+
+.chatm-burbuja p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* DECISIONES */
+
+.chatm-elecciones {
+  padding: 25px;
+  background: #FFFFFF;
+  border-top: 1px solid #E9D9D0;
+}
+
+.chatm-elecciones h3 {
+  margin: 0 0 18px;
+  font-size: 19px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.chatm-opcion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  padding: 16px 18px;
+  margin-bottom: 11px;
+  background: #FFF8F4;
+  border: 1px solid #E9D9D0;
+  border-radius: 14px;
+  text-align: left;
+  font-size: 14px;
+  font-family: inherit;
+  color: #493832;
+  cursor: pointer;
+  line-height: 1.6;
+}
+
+.chatm-opcion:hover {
+  background: #FFF0E8;
+  border-color: #F26D5B;
+}
+
+.chatm-opcion span:last-child {
+  flex-shrink: 0;
+  color: #B74632;
+}
+
+.chatm-pista {
+  padding: 17px 20px;
+  margin-bottom: 23px;
+  background: #F0EEFF;
+  border-radius: 15px;
+}
+
+.chatm-pista strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #584A75;
+  font-size: 14px;
+}
+
+.chatm-pista p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* DESENLACE */
+
+.chatm-desenlace {
+  padding: 25px;
+  border-top: 1px solid #E9D9D0;
+}
+
+.chatm-aprendizaje {
+  padding: 23px;
+  border-radius: 17px;
+  background: #EAF6F1;
+}
+
+.chatm-aprendizaje h3 {
+  margin: 10px 0;
+  font-size: 23px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.chatm-aprendizaje p {
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+.chatm-alerta {
+  margin-top: 17px;
+  padding: 19px;
+  border-left: 5px solid #F26D5B;
+  border-radius: 13px;
+  background: #FFF0E8;
+}
+
+.chatm-alerta p {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.chatm-botones-finales {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 24px;
+}
+
+.chatm-botones-finales button,
+.chatm-estado button,
+.chatm-final-juego button {
+  padding: 14px 20px;
+  border-radius: 13px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.chatm-repetir {
+  background: #FFFFFF;
+  border: 1px solid #E9D9D0;
+  color: #493832;
+}
+
+.chatm-siguiente,
+.chatm-estado button,
+.chatm-final-juego button {
+  background: #F26D5B;
+  border: 1px solid #F26D5B;
+  color: #493832;
+}
+
+.chatm-siguiente:hover,
+.chatm-estado button:hover,
+.chatm-final-juego button:hover {
+  background: #E65D49;
+  color: #FFFFFF;
+}
+
+/* SIN PERFIL / RESULTADO FINAL */
+
+.chatm-estado,
+.chatm-final-juego {
+  max-width: 750px;
+  margin: 35px auto;
+  background: #FFFFFF;
+  border-radius: 24px;
+  border: 1px solid #E9D9D0;
+  padding: 45px 30px;
+  text-align: center;
+}
+
+.chatm-estado-emoji,
+.chatm-final-emoji {
+  display: block;
+  font-size: 65px;
+  margin-bottom: 18px;
+}
+
+.chatm-estado h2,
+.chatm-final-juego h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 29px;
+}
+
+.chatm-estado p,
+.chatm-final-juego p {
+  max-width: 570px;
+  margin: 15px auto;
+  color: #655F5B;
+  line-height: 1.7;
+}
+
+.chatm-aviso {
+  max-width: 730px;
+  margin: 28px auto 0;
+  text-align: center;
+  color: #655F5B;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.chatm-pagina button:focus-visible {
+  outline: 3px solid #493832;
+  outline-offset: 3px;
+}
+
+/* TABLETS */
+
+@media (max-width: 900px) {
+  .chatm-capitulos-lista {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .chatm-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .chatm-hero img {
+    height: 240px;
+  }
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+  .chatm-pagina {
+    padding: 25px 4% 55px;
+  }
+
+  .chatm-hero {
+    padding: 20px;
+  }
+
+  .chatm-capitulos-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .chatm-capitulo {
+    min-height: 125px;
+    padding: 13px 8px;
+  }
+
+  .chatm-cabecera {
+    padding: 14px;
+  }
+
+  .chatm-avatar {
+    width: 43px;
+    height: 43px;
+  }
+
+  .chatm-contexto,
+  .chatm-mensajes,
+  .chatm-elecciones,
+  .chatm-desenlace {
+    padding: 17px;
+  }
+
+  .chatm-burbuja {
+    max-width: 85%;
+  }
+
+  .chatm-botones-finales {
+    flex-direction: column;
+  }
+
+  .chatm-botones-finales button {
+    width: 100%;
+  }
+}

@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabaseClient'
 import './PerfilMascota.css'
 
 // ==========================================
-// DATOS DEL PERFIL
+// DATOS INICIALES
 // ==========================================
 
 const mascotaInicial = {
@@ -15,7 +15,35 @@ const mascotaInicial = {
 }
 
 // ==========================================
-// LISTAS DE VACUNAS
+// RESPALDO LOCAL DEL PERFIL
+// ==========================================
+
+function leerPerfilLocal(id) {
+  try {
+    const guardado = localStorage.getItem(
+      `huellaPerfil_${id}`
+    )
+
+    if (!guardado) return null
+
+    const datos = JSON.parse(guardado)
+
+    if (
+      !datos ||
+      !datos.nombre ||
+      !['Perro', 'Gato'].includes(datos.especie)
+    ) {
+      return null
+    }
+
+    return datos
+  } catch {
+    return null
+  }
+}
+
+// ==========================================
+// VACUNAS PARA PERROS
 // ==========================================
 
 const vacunasPorEspecie = {
@@ -91,6 +119,10 @@ const vacunasPorEspecie = {
       ]
     }
   ],
+
+  // ========================================
+  // VACUNAS PARA GATOS
+  // ========================================
 
   Gato: [
     {
@@ -180,70 +212,130 @@ function PerfilMascota() {
   const [mascotaId, setMascotaId] = useState(null)
 
   const [perfilCreado, setPerfilCreado] = useState(false)
+  const [perfilConfirmado, setPerfilConfirmado] = useState(null)
+
   const [editando, setEditando] = useState(false)
   const [cargando, setCargando] = useState(true)
   const [guardando, setGuardando] = useState(false)
 
   const [mensaje, setMensaje] = useState('')
   const [vista, setVista] = useState('perfil')
+
   const [vacunasMarcadas, setVacunasMarcadas] = useState({})
 
   // ==========================================
-  // CARGAR MASCOTA DESDE SUPABASE
+  // CARGAR EL PERFIL
   // ==========================================
 
   useEffect(() => {
+    let activo = true
+
     async function cargarMascota() {
       const idGuardado = localStorage.getItem(
         'huellaMascotaId'
       )
 
       if (!idGuardado) {
-        setCargando(false)
+        if (activo) setCargando(false)
         return
       }
 
       const id = Number(idGuardado)
 
       if (!Number.isSafeInteger(id) || id <= 0) {
-        setMensaje('El identificador no es válido.')
-        setCargando(false)
+        if (activo) {
+          setMensaje('El identificador de la mascota no es válido.')
+          setCargando(false)
+        }
         return
       }
 
-      const { data, error } = await supabase
-        .from('mascotas')
-        .select('*')
-        .eq('id', id)
-        .single()
+      const perfilLocal = leerPerfilLocal(id)
 
-      if (error) {
-        console.error(error)
-        setMensaje('No fue posible recuperar tu mascota.')
-        setCargando(false)
-        return
+      try {
+        const { data, error } = await supabase
+          .from('mascotas')
+          .select('id, nombre, tipo, fecha_llegada')
+          .eq('id', id)
+          .maybeSingle()
+
+        if (!activo) return
+
+        if (error || !data) {
+          if (perfilLocal) {
+            setMascota(perfilLocal)
+            setPerfilConfirmado(perfilLocal)
+            setMascotaId(id)
+            setPerfilCreado(true)
+            setMensaje(
+              'Mostrando el perfil guardado en este dispositivo. La sincronización con Supabase está pendiente.'
+            )
+          } else {
+            setMensaje(
+              'No fue posible recuperar el perfil de tu mascota.'
+            )
+          }
+
+          return
+        }
+
+        const edadGuardada =
+          localStorage.getItem(`huellaEdad_${id}`) || ''
+
+        const datosServidor = {
+          nombre: data.nombre || '',
+          especie:
+            data.tipo === 'gato' ? 'Gato' : 'Perro',
+          edad: edadGuardada,
+          fechaAdopcion: data.fecha_llegada || ''
+        }
+
+        // Si existe una edición local pendiente,
+        // la mostramos sin perder los cambios.
+        const datosActuales = perfilLocal
+          ? { ...datosServidor, ...perfilLocal }
+          : datosServidor
+
+        setMascota(datosActuales)
+        setPerfilConfirmado(datosActuales)
+
+        setMascotaId(id)
+        setPerfilCreado(true)
+
+        if (perfilLocal) {
+          setMensaje(
+            'Este perfil tiene cambios guardados en el dispositivo que aún no se han sincronizado con Supabase.'
+          )
+        }
+      } catch (error) {
+        console.error('Error al cargar el perfil:', error)
+
+        if (activo && perfilLocal) {
+          setMascota(perfilLocal)
+          setPerfilConfirmado(perfilLocal)
+          setMascotaId(id)
+          setPerfilCreado(true)
+
+          setMensaje(
+            'Mostrando el perfil local. La sincronización está pendiente.'
+          )
+        } else if (activo) {
+          setMensaje('No fue posible cargar el perfil.')
+        }
+      } finally {
+        if (activo) setCargando(false)
       }
-
-      const edadGuardada =
-        localStorage.getItem(`huellaEdad_${id}`) || ''
-
-      setMascota({
-        nombre: data.nombre || '',
-        especie: data.tipo === 'gato' ? 'Gato' : 'Perro',
-        edad: edadGuardada,
-        fechaAdopcion: data.fecha_llegada || ''
-      })
-
-      setMascotaId(id)
-      setPerfilCreado(true)
-      setCargando(false)
     }
 
     cargarMascota()
+
+    return () => {
+      activo = false
+    }
   }, [])
 
   // ==========================================
-  // CARGAR VACUNAS GUARDADAS
+  // CARGAR VACUNAS
   // ==========================================
 
   useEffect(() => {
@@ -259,20 +351,22 @@ function PerfilMascota() {
         ) || '{}'
       )
 
-      setVacunasMarcadas(
+      if (
         guardadas &&
         typeof guardadas === 'object' &&
         !Array.isArray(guardadas)
-          ? guardadas
-          : {}
-      )
+      ) {
+        setVacunasMarcadas(guardadas)
+      } else {
+        setVacunasMarcadas({})
+      }
     } catch {
       setVacunasMarcadas({})
     }
   }, [mascotaId])
 
   // ==========================================
-  // ACTUALIZAR FORMULARIO
+  // ACTUALIZAR LOS CAMPOS
   // ==========================================
 
   function actualizarCampo(evento) {
@@ -285,11 +379,13 @@ function PerfilMascota() {
   }
 
   // ==========================================
-  // GUARDAR MASCOTA
+  // GUARDAR O EDITAR EL PERFIL
   // ==========================================
 
   async function guardarPerfil(evento) {
     evento.preventDefault()
+
+    if (guardando) return
 
     if (
       !mascota.nombre.trim() ||
@@ -303,62 +399,124 @@ function PerfilMascota() {
     setGuardando(true)
     setMensaje('')
 
-    const datos = {
+    const nuevosDatos = {
       nombre: mascota.nombre.trim(),
-      tipo: mascota.especie.toLowerCase(),
-      fecha_llegada: mascota.fechaAdopcion
+      especie: mascota.especie,
+      edad: mascota.edad.trim(),
+      fechaAdopcion: mascota.fechaAdopcion
+    }
+
+    const datosSupabase = {
+      nombre: nuevosDatos.nombre,
+      tipo: nuevosDatos.especie.toLowerCase(),
+      fecha_llegada: nuevosDatos.fechaAdopcion
     }
 
     try {
-      let resultado
-
       if (mascotaId) {
-        resultado = await supabase
+        // ======================================
+        // EDITAR MASCOTA EXISTENTE
+        // ======================================
+
+        const { data, error } = await supabase
           .from('mascotas')
-          .update(datos)
+          .update(datosSupabase)
           .eq('id', mascotaId)
-          .select()
-          .single()
+          .select('id, nombre, tipo, fecha_llegada')
+          .maybeSingle()
+
+        // Guardar la edad, que actualmente
+        // se maneja en localStorage.
+        localStorage.setItem(
+          `huellaEdad_${mascotaId}`,
+          nuevosDatos.edad
+        )
+
+        if (error || !data) {
+          // Respaldo local si Supabase no permite
+          // actualizar el registro todavía.
+          localStorage.setItem(
+            `huellaPerfil_${mascotaId}`,
+            JSON.stringify(nuevosDatos)
+          )
+
+          setMensaje(
+            'Cambios guardados en este dispositivo. La sincronización con Supabase está pendiente.'
+          )
+        } else {
+          // Supabase confirmó la edición.
+          localStorage.removeItem(
+            `huellaPerfil_${mascotaId}`
+          )
+
+          setMensaje('Perfil actualizado correctamente.')
+        }
+
+        setMascota(nuevosDatos)
+        setPerfilConfirmado(nuevosDatos)
+
+        setPerfilCreado(true)
+        setEditando(false)
+        setVista('perfil')
       } else {
-        resultado = await supabase
+        // ======================================
+        // CREAR PERFIL NUEVO
+        // ======================================
+
+        const { data, error } = await supabase
           .from('mascotas')
-          .insert(datos)
-          .select()
+          .insert(datosSupabase)
+          .select('id, nombre, tipo, fecha_llegada')
           .single()
+
+        if (error || !data) {
+          throw error || new Error(
+            'No se recibió el perfil creado.'
+          )
+        }
+
+        localStorage.setItem(
+          'huellaMascotaId',
+          String(data.id)
+        )
+
+        localStorage.setItem(
+          `huellaEdad_${data.id}`,
+          nuevosDatos.edad
+        )
+
+        setMascotaId(data.id)
+        setMascota(nuevosDatos)
+        setPerfilConfirmado(nuevosDatos)
+
+        setPerfilCreado(true)
+        setEditando(false)
+        setVista('perfil')
+
+        setMensaje('Perfil creado correctamente.')
       }
-
-      const { data, error } = resultado
-
-      if (error) throw error
-
-      localStorage.setItem(
-        'huellaMascotaId',
-        String(data.id)
-      )
-
-      localStorage.setItem(
-        `huellaEdad_${data.id}`,
-        mascota.edad
-      )
-
-      setMascotaId(data.id)
-
-      setMascota((anterior) => ({
-        ...anterior,
-        nombre: data.nombre,
-        especie: data.tipo === 'gato' ? 'Gato' : 'Perro',
-        fechaAdopcion: data.fecha_llegada
-      }))
-
-      setPerfilCreado(true)
-      setEditando(false)
-      setVista('perfil')
     } catch (error) {
-      console.error(error)
-      setMensaje('No fue posible guardar el perfil.')
+      console.error('Error al guardar el perfil:', error)
+
+      setMensaje(
+        'No fue posible guardar el perfil. Comprueba tu conexión y vuelve a intentarlo.'
+      )
     } finally {
       setGuardando(false)
     }
+  }
+
+  // ==========================================
+  // CANCELAR EDICIÓN
+  // ==========================================
+
+  function cancelarEdicion() {
+    if (perfilConfirmado) {
+      setMascota({ ...perfilConfirmado })
+    }
+
+    setEditando(false)
+    setMensaje('')
   }
 
   // ==========================================
@@ -382,15 +540,16 @@ function PerfilMascota() {
       setVacunasMarcadas(nuevasMarcas)
       setMensaje('')
     } catch (error) {
-      console.error(error)
+      console.error('Error al guardar la vacuna:', error)
+
       setMensaje(
-        'No fue posible guardar esta marca.'
+        'No fue posible guardar esta vacuna.'
       )
     }
   }
 
   // ==========================================
-  // FORMATEAR FECHA
+  // FORMATEAR LA FECHA
   // ==========================================
 
   function formatearFecha(fecha) {
@@ -405,6 +564,10 @@ function PerfilMascota() {
     })
   }
 
+  // ==========================================
+  // PANTALLA DE CARGA
+  // ==========================================
+
   if (cargando) {
     return (
       <section className="perfil-mascota">
@@ -416,7 +579,7 @@ function PerfilMascota() {
   }
 
   // ==========================================
-  // LISTA DE VACUNAS
+  // PÁGINA DE VACUNAS
   // ==========================================
 
   if (perfilCreado && vista === 'vacunas') {
@@ -426,10 +589,14 @@ function PerfilMascota() {
     return (
       <section className="perfil-mascota">
         <div className="vacunas-contenedor">
+
           <button
             type="button"
             className="vacunas-volver"
-            onClick={() => setVista('perfil')}
+            onClick={() => {
+              setVista('perfil')
+              setMensaje('')
+            }}
           >
             ← Volver a mi mascota
           </button>
@@ -442,18 +609,20 @@ function PerfilMascota() {
             <h1>Vacunas de {mascota.nombre}</h1>
 
             <p>
-              Conoce las vacunas recomendadas
-              para tu mascota y marca las dosis
-              que ya recibió.
+              Conoce las vacunas recomendadas para
+              tu mascota y marca las dosis que
+              ya recibió.
             </p>
           </div>
 
           <div className="vacunas-lista-simple">
+
             {lista.map((vacuna) => (
               <article
                 className="vacuna-tarjeta"
                 key={vacuna.id}
               >
+
                 <div className="vacuna-tarjeta-encabezado">
                   <h2>{vacuna.nombre}</h2>
 
@@ -466,7 +635,6 @@ function PerfilMascota() {
 
                 <div className="vacuna-informacion">
                   <h3>¿Para qué sirve?</h3>
-
                   <p>{vacuna.descripcion}</p>
                 </div>
 
@@ -507,9 +675,7 @@ function PerfilMascota() {
                           </span>
                         </span>
 
-                        <span
-                          className="vacuna-casilla-estado"
-                        >
+                        <span className="vacuna-casilla-estado">
                           {marcada
                             ? 'Aplicada'
                             : 'Sin registrar'}
@@ -518,8 +684,10 @@ function PerfilMascota() {
                     )
                   })}
                 </div>
+
               </article>
             ))}
+
           </div>
 
           <div className="vacunas-aviso">
@@ -550,21 +718,22 @@ function PerfilMascota() {
               {mensaje}
             </p>
           )}
+
         </div>
       </section>
     )
   }
 
   // ==========================================
-  // PERFIL DE MASCOTA
+  // PERFIL O FORMULARIO
   // ==========================================
 
   const mostrarFormulario = !perfilCreado || editando
 
   return (
     <section className="perfil-mascota">
-      <div className="perfil-encabezado">
 
+      <div className="perfil-encabezado">
         {mostrarFormulario ? (
           <>
             <span className="section-tag">
@@ -584,10 +753,16 @@ function PerfilMascota() {
       </div>
 
       {mostrarFormulario ? (
+
+        // ======================================
+        // FORMULARIO DE EDICIÓN
+        // ======================================
+
         <form
           className="perfil-formulario"
           onSubmit={guardarPerfil}
         >
+
           <h2>
             {editando
               ? 'Editar datos de tu mascota'
@@ -619,9 +794,17 @@ function PerfilMascota() {
             onChange={actualizarCampo}
             required
           >
-            <option value="">Seleccionar</option>
-            <option value="Perro">Perro</option>
-            <option value="Gato">Gato</option>
+            <option value="">
+              Seleccionar
+            </option>
+
+            <option value="Perro">
+              Perro
+            </option>
+
+            <option value="Gato">
+              Gato
+            </option>
           </select>
 
           <label htmlFor="edad">
@@ -675,16 +858,21 @@ function PerfilMascota() {
             <button
               type="button"
               className="perfil-cancelar"
-              onClick={() => {
-                setEditando(false)
-                setMensaje('')
-              }}
+              onClick={cancelarEdicion}
+              disabled={guardando}
             >
               Cancelar
             </button>
           )}
+
         </form>
+
       ) : (
+
+        // ======================================
+        // RESUMEN DEL PERFIL
+        // ======================================
+
         <div className="perfil-resumen">
 
           <div
@@ -719,6 +907,15 @@ function PerfilMascota() {
             </p>
           </div>
 
+          {mensaje && (
+            <p
+              className="perfil-mensaje"
+              role="status"
+            >
+              {mensaje}
+            </p>
+          )}
+
           <div className="perfil-accesos">
             <button
               type="button"
@@ -743,8 +940,10 @@ function PerfilMascota() {
           >
             Editar perfil
           </button>
+
         </div>
       )}
+
     </section>
   )
 }

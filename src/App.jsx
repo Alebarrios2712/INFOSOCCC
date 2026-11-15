@@ -1,20 +1,26 @@
 
 import { useState } from 'react'
 import './App.css'
-import QuizAdopcion from './components/QuizAdopcion'
 
-// IMAGEN DE INICIO
+// ==========================================
+// IMÁGENES
+// ==========================================
+
 import heroImage from './assets/pyg.jpg'
 
-// COMPONENTES DEL PROYECTO
-import AsistenteConductas from './components/AsistenteConductas'
+// ==========================================
+// COMPONENTES
+// ==========================================
+
+import QuizAdopcion from './components/QuizAdopcion'
+import ChatMascota from './components/ChatMascota'
 import DiarioAdaptacion from './components/DiarioAdaptacion'
 import PerfilMascota from './components/PerfilMascota'
 import AlertasEmergencia from './components/AlertasEmergencia'
 import PrimerosDias from './components/PrimerosDias'
 
 // ==========================================
-// ICONOS DE LAS TARJETAS DE INICIO
+// ICONOS DE LAS TARJETAS
 // ==========================================
 
 function Icono({ tipo }) {
@@ -62,26 +68,43 @@ function Icono({ tipo }) {
 function App() {
   const [pagina, setPagina] = useState('inicio')
 
+  // Controla si el Quiz de Adopción está visible
+  const [mostrarQuiz, setMostrarQuiz] = useState(false)
+
+  // ==========================================
+  // ABRIR EL QUIZ DE ADOPCIÓN
+  // ==========================================
 
   function iniciarTest() {
-    setQuiz((anterior) => ({ n: anterior.n + 1, directo: true }))
+    setMostrarQuiz(true)
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        document.getElementById('quiz-adopcion')?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
-        })
+        document
+          .getElementById('quiz-adopcion')
+          ?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          })
       })
     })
   }
 
   // ==========================================
-  // NAVEGACIÓN ENTRE PÁGINAS
+  // CERRAR EL QUIZ
+  // ==========================================
+
+  function cerrarTest() {
+    setMostrarQuiz(false)
+  }
+
+  // ==========================================
+  // NAVEGACIÓN
   // ==========================================
 
   function navegar(destino) {
     setPagina(destino)
+    setMostrarQuiz(false)
 
     window.scrollTo({
       top: 0,
@@ -90,18 +113,20 @@ function App() {
   }
 
   // ==========================================
-  // IR A LAS GUÍAS DE LA PORTADA
+  // IR A LAS TARJETAS DE INICIO
   // ==========================================
 
   function irAGuia() {
     setPagina('inicio')
+    setMostrarQuiz(false)
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         document
           .getElementById('guia')
           ?.scrollIntoView({
-            behavior: 'smooth'
+            behavior: 'smooth',
+            block: 'start'
           })
       })
     })
@@ -123,7 +148,7 @@ function App() {
       id: 'conductas',
       titulo: 'Conductas',
       descripcion:
-        'Aprende a comprender sus emociones, comportamientos y necesidades durante la adaptación.',
+        'Conversa con tu mascota, toma decisiones y descubre qué podría estar comunicando a través de sus comportamientos.',
       clase: 'card-behavior'
     },
     {
@@ -136,7 +161,7 @@ function App() {
   ]
 
   // ==========================================
-  // ESTRUCTURA PRINCIPAL
+  // ESTRUCTURA DE LA PÁGINA
   // ==========================================
 
   return (
@@ -205,21 +230,15 @@ function App() {
 
         <nav aria-label="Navegación principal">
 
-          {/* INICIO */}
-
           <button
             type="button"
             className={
-              pagina === 'inicio'
-                ? 'nav-active'
-                : ''
+              pagina === 'inicio' ? 'nav-active' : ''
             }
             onClick={() => navegar('inicio')}
           >
             Inicio
           </button>
-
-          {/* MI MASCOTA */}
 
           <button
             type="button"
@@ -230,63 +249,44 @@ function App() {
             }`}
             onClick={() => navegar('mascota')}
           >
-            <span aria-hidden="true">
-              🐾
-            </span>
-
+            <span aria-hidden="true">🐾</span>
             Mi mascota
           </button>
-
-          {/* DIARIO */}
 
           <button
             type="button"
             className={
-              pagina === 'diario'
-                ? 'nav-active'
-                : ''
+              pagina === 'diario' ? 'nav-active' : ''
             }
             onClick={() => navegar('diario')}
           >
             Diario
           </button>
 
-          {/* PRIMEROS DÍAS */}
-
           <button
             type="button"
             className={
-              pagina === 'primeros'
-                ? 'nav-active'
-                : ''
+              pagina === 'primeros' ? 'nav-active' : ''
             }
             onClick={() => navegar('primeros')}
           >
             Primeros días
           </button>
 
-          {/* CONDUCTAS */}
-
           <button
             type="button"
             className={
-              pagina === 'conductas'
-                ? 'nav-active'
-                : ''
+              pagina === 'conductas' ? 'nav-active' : ''
             }
             onClick={() => navegar('conductas')}
           >
             Conductas
           </button>
 
-          {/* ALERTAS */}
-
           <button
             type="button"
             className={
-              pagina === 'alertas'
-                ? 'nav-active'
-                : ''
+              pagina === 'alertas' ? 'nav-active' : ''
             }
             onClick={() => navegar('alertas')}
           >
@@ -302,12 +302,15 @@ function App() {
 
       <main>
 
+        {/* =====================================
+            PÁGINA DE INICIO
+        ===================================== */}
+
         {pagina === 'inicio' ? (
 
           <>
-            {/* =====================================
-                PORTADA
-            ===================================== */}
+
+            {/* PORTADA */}
 
             <section
               className="hero"
@@ -326,21 +329,37 @@ function App() {
                   reconocer cuándo necesita ayuda.
                 </p>
 
-                <button
-                  type="button"
-                  onClick={irAGuia}
-                >
-                  Comenzar guía
-                </button>
+                {/* BOTONES DE LA PORTADA */}
 
-                <button
-                  type="button"
-                  className="hero-secundario"
-                  onClick={iniciarTest}
+                <div
+                  className="hero-acciones"
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    gap: '24px',
+                    marginTop: '12px'
+                  }}
                 >
-                  ¿Estás listo para adoptar?
-                </button>
 
+                  <button
+                    type="button"
+                    onClick={irAGuia}
+                  >
+                    Comenzar guía
+                  </button>
+
+                  <button
+                    type="button"
+                    className="hero-secundario"
+                    onClick={iniciarTest}
+                    aria-expanded={mostrarQuiz}
+                    aria-controls="quiz-adopcion"
+                  >
+                    ¿Estás listo para adoptar?
+                  </button>
+
+                </div>
               </div>
 
               <div className="hero-image">
@@ -350,20 +369,66 @@ function App() {
                 />
               </div>
             </section>
-            
-            <QuizAdopcion
-              irAPrimeros={() => navegar('primeros')}
-              irAlDiario={() => navegar('diario')}
-            />
 
             {/* =====================================
-                TARJETAS DE LA PORTADA
+                QUIZ DE ADOPCIÓN
+            ===================================== */}
+
+            {mostrarQuiz && (
+
+              <div
+                id="quiz-adopcion"
+                style={{
+                  scrollMarginTop: '24px'
+                }}
+              >
+
+                {/* BOTÓN PARA CERRAR */}
+
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    padding: '20px 6% 0'
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={cerrarTest}
+                    style={{
+                      border: '1px solid #E9D9D0',
+                      background: '#FFFFFF',
+                      color: '#493832',
+                      borderRadius: '12px',
+                      padding: '10px 16px',
+                      cursor: 'pointer',
+                      fontWeight: 700
+                    }}
+                  >
+                    ✕ Cerrar test
+                  </button>
+                </div>
+
+                {/* COMPONENTE DEL QUIZ */}
+
+                <QuizAdopcion
+                  irAPrimeros={() => navegar('primeros')}
+                  irAlDiario={() => navegar('diario')}
+                />
+
+              </div>
+
+            )}
+
+            {/* =====================================
+                GUÍAS PRINCIPALES
             ===================================== */}
 
             <section
               className="options"
               id="guia"
             >
+
               <div className="options-heading">
 
                 <span className="section-tag">
@@ -379,11 +444,13 @@ function App() {
                   Descubre cómo acompañarla
                   en esta nueva etapa.
                 </p>
+
               </div>
 
               <div className="cards">
 
                 {tarjetas.map((tarjeta) => (
+
                   <article
                     className={`card ${tarjeta.clase}`}
                     key={tarjeta.id}
@@ -414,16 +481,18 @@ function App() {
                     </button>
 
                   </article>
+
                 ))}
 
               </div>
             </section>
+
           </>
 
         ) : pagina === 'mascota' ? (
 
           /* =====================================
-              PERFIL DE MASCOTA Y VACUNAS
+              MI MASCOTA Y VACUNAS
           ===================================== */
 
           <PerfilMascota />
@@ -439,8 +508,7 @@ function App() {
         ) : pagina === 'primeros' ? (
 
           /* =====================================
-              NUEVA GUÍA INTERACTIVA
-              DE PRIMEROS DÍAS
+              PRIMEROS DÍAS
           ===================================== */
 
           <PrimerosDias />
@@ -448,7 +516,8 @@ function App() {
         ) : pagina === 'conductas' ? (
 
           /* =====================================
-              GUÍA INTERACTIVA DE CONDUCTAS
+              NUEVO CHAT INTERACTIVO
+              DE CONDUCTAS
           ===================================== */
 
           <section className="info-page info-conductas">
@@ -465,10 +534,10 @@ function App() {
                 ← Volver al inicio
               </button>
 
-              {/* GUÍA DE CONDUCTAS */}
+              {/* CHAT PERSONALIZADO */}
 
-              <AsistenteConductas
-                irAlDiario={() => navegar('diario')}
+              <ChatMascota
+                irAPerfil={() => navegar('mascota')}
               />
 
               {/* CONSEJO FINAL */}
@@ -477,9 +546,7 @@ function App() {
 
                 <div className="tip-heading">
 
-                  <span aria-hidden="true">
-                    ♡
-                  </span>
+                  <span aria-hidden="true">♡</span>
 
                   <h2>
                     Un consejo para ti
@@ -493,6 +560,7 @@ function App() {
                   Una conducta aislada no siempre
                   tiene un único significado.
                 </p>
+
               </aside>
 
               {/* CIERRE */}
@@ -516,13 +584,14 @@ function App() {
                 </button>
 
               </div>
+
             </div>
           </section>
 
         ) : pagina === 'alertas' ? (
 
           /* =====================================
-              GUÍAS DE EMERGENCIA
+              ALERTAS Y EMERGENCIAS
           ===================================== */
 
           <AlertasEmergencia />
@@ -530,6 +599,7 @@ function App() {
         ) : null}
 
       </main>
+
     </div>
   )
 }
