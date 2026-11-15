@@ -1,0 +1,490 @@
+
+/* =========================================
+   PRIMEROS DÍAS - HUELLA SEGURA
+========================================= */
+
+.primeros-pagina {
+  min-height: 85vh;
+  padding: 55px 6% 85px;
+  background: #FFF8F4;
+  color: #493832;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.primeros-pagina *,
+.primeros-pagina *::before,
+.primeros-pagina *::after {
+  box-sizing: border-box;
+}
+
+.primeros-contenedor {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.primeros-etiqueta {
+  display: inline-block;
+  color: #B74632;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+/* ENCABEZADO */
+
+.primeros-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 30px;
+  align-items: center;
+  padding: 30px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #FFF0E8, #EAF6F1);
+}
+
+.primeros-hero-texto h1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(30px, 4vw, 47px);
+  line-height: 1.15;
+  margin: 15px 0;
+  color: #493832;
+}
+
+.primeros-hero-texto > p {
+  color: #655F5B;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.primeros-hero-imagen {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+.primeros-hero-nota {
+  background: #FFFFFF;
+  padding: 15px 18px;
+  border-radius: 14px;
+  border-left: 4px solid #F26D5B;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* SELECTOR PERRO / GATO */
+
+.primeros-selector-bloque {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 48px 0 24px;
+}
+
+.primeros-selector-bloque h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  margin: 0 0 7px;
+  font-size: 27px;
+}
+
+.primeros-selector-bloque p {
+  margin: 0;
+  color: #655F5B;
+}
+
+.primeros-selector {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  background: #FFFFFF;
+  border: 1px solid #F0E5DF;
+  border-radius: 999px;
+}
+
+.primeros-selector button {
+  padding: 12px 24px;
+  background: transparent;
+  color: #493832;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.primeros-selector button.activo {
+  background: #493832;
+  color: #FFFFFF;
+}
+
+/* PROGRESO */
+
+.primeros-progreso {
+  padding: 25px;
+  background: #FFFFFF;
+  border: 1px solid #F0E5DF;
+  border-radius: 20px;
+  margin-bottom: 42px;
+}
+
+.primeros-progreso-titulos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.primeros-progreso-titulos strong {
+  font-size: 18px;
+}
+
+.primeros-progreso-titulos p {
+  color: #655F5B;
+  margin: 6px 0 0;
+  font-size: 14px;
+}
+
+.primeros-progreso-titulos > span {
+  color: #23785F;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.primeros-barra {
+  width: 100%;
+  height: 11px;
+  background: #EAF6F1;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.primeros-barra span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #3BB383;
+  transition: width 0.2s ease;
+}
+
+/* TÍTULOS */
+
+.primeros-seccion-heading {
+  margin-bottom: 24px;
+}
+
+.primeros-seccion-heading h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(26px, 3vw, 34px);
+  margin: 12px 0;
+}
+
+.primeros-seccion-heading p {
+  color: #655F5B;
+  line-height: 1.7;
+  max-width: 740px;
+}
+
+/* CHECKLIST */
+
+.primeros-checklist {
+  margin: 45px 0 65px;
+}
+
+.primeros-checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.primeros-check-item,
+.primeros-dia-tarea {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  background: #FFFFFF;
+  border: 1px solid #F0E5DF;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 1.6;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.primeros-check-item:has(input:checked),
+.primeros-dia-tarea:has(input:checked) {
+  background: #EAF6F1;
+  border-color: #85CEAA;
+}
+
+.primeros-check-item input,
+.primeros-dia-tarea input {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: #23785F;
+}
+
+.primeros-check-item span,
+.primeros-dia-tarea span {
+  color: #493832;
+  font-size: 15px;
+}
+
+/* SELECTOR DE DÍAS */
+
+.primeros-recorrido {
+  margin-top: 45px;
+}
+
+.primeros-dias-selector {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.primeros-dia-boton {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 16px 8px;
+  background: #FFFFFF;
+  color: #493832;
+  border: 1px solid #E9D9D0;
+  border-radius: 17px;
+  cursor: pointer;
+}
+
+.primeros-dia-boton > span {
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.primeros-dia-boton strong {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 27px;
+}
+
+.primeros-dia-boton small {
+  position: absolute;
+  top: 5px;
+  right: 9px;
+  color: #23785F;
+  font-weight: 800;
+}
+
+.primeros-dia-boton.activo {
+  background: #F26D5B;
+  color: #493832;
+  border-color: #F26D5B;
+  box-shadow: 0 8px 18px rgba(242, 109, 91, 0.15);
+}
+
+/* DETALLE DEL DÍA */
+
+.primeros-dia-panel {
+  padding: 32px;
+  border: 1px solid #F0E5DF;
+  border-radius: 24px;
+  background: #FFFFFF;
+  box-shadow: 0 10px 25px rgba(73, 56, 50, 0.05);
+}
+
+.primeros-dia-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 26px;
+}
+
+.primeros-dia-panel-heading h3 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(23px, 3vw, 31px);
+  margin: 10px 0;
+}
+
+.primeros-dia-panel-heading p {
+  color: #655F5B;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.primeros-dia-contador {
+  background: #EAF6F1;
+  color: #23785F;
+  font-weight: 800;
+  padding: 12px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.primeros-dia-tareas {
+  display: grid;
+  gap: 12px;
+}
+
+.primeros-consejo {
+  background: #FFF0E8;
+  border-left: 5px solid #F26D5B;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 26px;
+}
+
+.primeros-consejo strong {
+  font-size: 17px;
+}
+
+.primeros-consejo p {
+  margin: 9px 0 0;
+  color: #655F5B;
+  line-height: 1.7;
+}
+
+.primeros-dia-navegacion {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.primeros-dia-navegacion button {
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primeros-anterior {
+  color: #493832;
+  background: #FFF8F4;
+  border: 1px solid #E9D9D0;
+}
+
+.primeros-siguiente {
+  color: #493832;
+  background: #F26D5B;
+  border: 1px solid #F26D5B;
+}
+
+.primeros-dia-navegacion button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* CIERRE */
+
+.primeros-cierre {
+  text-align: center;
+  margin-top: 55px;
+  padding: 35px;
+  border-radius: 24px;
+  background: #EAF6F1;
+}
+
+.primeros-cierre h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  margin-top: 0;
+  font-size: 26px;
+}
+
+.primeros-cierre p {
+  max-width: 720px;
+  margin: 12px auto;
+  color: #493832;
+  line-height: 1.75;
+}
+
+.primeros-cierre .primeros-cierre-pequeno {
+  font-size: 13px;
+  color: #655F5B;
+}
+
+/* ACCESIBILIDAD */
+
+.primeros-pagina button:focus-visible,
+.primeros-pagina input:focus-visible {
+  outline: 3px solid #493832;
+  outline-offset: 3px;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 850px) {
+  .primeros-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .primeros-hero-imagen {
+    height: 260px;
+  }
+
+  .primeros-dias-selector {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .primeros-pagina {
+    padding: 32px 5% 60px;
+  }
+
+  .primeros-hero,
+  .primeros-dia-panel,
+  .primeros-cierre {
+    padding: 21px;
+  }
+
+  .primeros-checklist-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .primeros-dias-selector {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .primeros-dia-boton {
+    padding: 12px 2px;
+    border-radius: 10px;
+  }
+
+  .primeros-dia-boton strong {
+    font-size: 21px;
+  }
+
+  .primeros-dia-boton > span {
+    font-size: 9px;
+  }
+
+  .primeros-dia-boton small {
+    right: 2px;
+    top: 2px;
+  }
+
+  .primeros-dia-panel-heading {
+    flex-direction: column;
+  }
+
+  .primeros-dia-navegacion button {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primeros-barra span,
+  .primeros-check-item,
+  .primeros-dia-tarea {
+    transition: none;
+  }
+}

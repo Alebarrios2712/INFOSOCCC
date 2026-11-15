@@ -1,0 +1,396 @@
+
+/* =====================================
+   ALERTAS - HUELLA SEGURA
+===================================== */
+
+.alertas-emergencia {
+  min-height: 85vh;
+  background: linear-gradient(
+    135deg,
+    #FFF8F4,
+    #FFF0E8,
+    #EAF6F1
+  );
+  padding: 65px 7%;
+  font-family: 'DM Sans', sans-serif;
+  color: #493832;
+}
+
+.alertas-emergencia *,
+.alertas-emergencia *::before,
+.alertas-emergencia *::after {
+  box-sizing: border-box;
+}
+
+.alertas-contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* =====================================
+   ENCABEZADO
+===================================== */
+
+.alertas-encabezado {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 35px;
+}
+
+.alertas-encabezado h1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(30px, 4vw, 45px);
+  color: #493832;
+  line-height: 1.2;
+}
+
+.alertas-encabezado p {
+  color: #655F5B;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* AVISO DE EMERGENCIA */
+
+.alertas-advertencia {
+  background: #FFF0E8;
+  border-left: 5px solid #C34A3D;
+  border-radius: 15px;
+  padding: 20px 25px;
+  margin-bottom: 32px;
+}
+
+.alertas-advertencia strong {
+  color: #8E3029;
+}
+
+.alertas-advertencia p {
+  color: #493832;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* =====================================
+   TARJETAS PRINCIPALES
+===================================== */
+
+.alertas-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  );
+  gap: 25px;
+}
+
+.alertas-card {
+  background: #FFFFFF;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 30px rgba(73, 56, 50, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.alertas-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 35px rgba(73, 56, 50, 0.12);
+}
+
+.alertas-card-imagen {
+  display: block;
+  width: 100%;
+  height: 235px;
+  object-fit: cover;
+}
+
+.alertas-card-contenido {
+  padding: 25px;
+}
+
+.alertas-card-contenido h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #493832;
+  font-size: 24px;
+  margin: 0 0 9px;
+}
+
+.alertas-card-contenido p {
+  color: #655F5B;
+  line-height: 1.6;
+  font-size: 15px;
+  min-height: 45px;
+}
+
+.alertas-card-contenido button {
+  background: #F26D5B;
+  border: none;
+  border-radius: 13px;
+  color: #493832;
+  padding: 13px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 14px;
+}
+
+.alertas-card-contenido button:hover {
+  background: #E85B48;
+  color: #FFFFFF;
+}
+
+/* =====================================
+   DETALLE DE EMERGENCIAS
+===================================== */
+
+.alertas-detalle {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.alertas-volver {
+  background: transparent;
+  border: none;
+  padding: 10px 0;
+  color: #493832;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.alertas-volver:hover {
+  color: #E85B48;
+}
+
+.alertas-detalle-imagen {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 22px;
+  display: block;
+}
+
+.alertas-detalle-encabezado {
+  padding: 30px 0;
+}
+
+.alertas-detalle-encabezado h1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(30px, 4vw, 43px);
+  color: #493832;
+  margin: 12px 0;
+}
+
+.alertas-detalle-encabezado p {
+  color: #655F5B;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* QUÉ HACER Y QUÉ EVITAR */
+
+.alertas-pasos,
+.alertas-evitar,
+.alertas-intoxicaciones {
+  background: #FFFFFF;
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+  box-shadow:
+    0 8px 24px rgba(73, 56, 50, 0.05);
+}
+
+.alertas-pasos {
+  border-top: 5px solid #6FBA98;
+}
+
+.alertas-evitar {
+  border-top: 5px solid #E9A06A;
+}
+
+.alertas-pasos h2,
+.alertas-evitar h2,
+.alertas-intoxicaciones h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 24px;
+  color: #493832;
+  margin: 0 0 18px;
+}
+
+.alertas-pasos ol,
+.alertas-evitar ul {
+  padding-left: 25px;
+  margin: 0;
+}
+
+.alertas-pasos li,
+.alertas-evitar li {
+  line-height: 1.7;
+  margin-bottom: 13px;
+  padding-left: 5px;
+}
+
+.alertas-pasos li:last-child,
+.alertas-evitar li:last-child {
+  margin-bottom: 0;
+}
+
+/* =====================================
+   INTOXICACIONES INTERACTIVAS
+===================================== */
+
+.alertas-intoxicaciones > p {
+  color: #655F5B;
+  line-height: 1.7;
+}
+
+.alertas-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.alertas-categorias button {
+  padding: 12px 20px;
+  background: #FFF0E8;
+  border: 1px solid #E9D9D0;
+  border-radius: 30px;
+  color: #493832;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.alertas-categorias button:hover {
+  background: #FCE4D8;
+}
+
+.alertas-categorias button.activo {
+  background: #F26D5B;
+  border-color: #F26D5B;
+  color: #493832;
+}
+
+.alertas-categoria-contenido {
+  background: #FFF8F4;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.alertas-categoria-contenido h3 {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #493832;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.alertas-categoria-contenido > p {
+  color: #655F5B;
+  line-height: 1.7;
+}
+
+.alertas-alimentos-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  );
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.alertas-alimento {
+  background: #FFFFFF;
+  padding: 19px;
+  border-radius: 15px;
+  border: 1px solid #F0E5DF;
+}
+
+.alertas-alimento h4 {
+  color: #493832;
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.alertas-alimento p {
+  color: #655F5B;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* RECORDATORIO FINAL */
+
+.alertas-aviso-final {
+  background: #FFF0E8;
+  border-left: 5px solid #F26D5B;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 25px;
+}
+
+.alertas-aviso-final h3 {
+  margin-top: 0;
+  color: #493832;
+}
+
+.alertas-aviso-final p {
+  color: #655F5B;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ACCESIBILIDAD */
+
+.alertas-emergencia button:focus-visible {
+  outline: 3px solid #493832;
+  outline-offset: 3px;
+}
+
+/* =====================================
+   VERSIÓN PARA CELULARES
+===================================== */
+
+@media (max-width: 700px) {
+  .alertas-emergencia {
+    padding: 42px 5%;
+  }
+
+  .alertas-grid,
+  .alertas-alimentos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alertas-card-imagen {
+    height: 210px;
+  }
+
+  .alertas-detalle-imagen {
+    height: 225px;
+  }
+
+  .alertas-pasos,
+  .alertas-evitar,
+  .alertas-intoxicaciones {
+    padding: 21px;
+  }
+
+  .alertas-categoria-contenido {
+    padding: 18px;
+  }
+
+  .alertas-encabezado h1 {
+    font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alertas-card {
+    transition: none;
+  }
+}
