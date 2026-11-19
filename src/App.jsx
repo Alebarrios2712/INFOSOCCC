@@ -244,88 +244,117 @@ function App() {
           BARRA DE NAVEGACIÓN
       ===================================== */}
 
-      <header className="navbar">
-
-        {/* NUEVO LOGO */}
+      <header className="navbar navbar-expand-lg bg-white">
+      <div className="container">
 
         <button
           type="button"
           className="navbar-logo-boton"
           onClick={() => navegar('inicio')}
-          aria-label="Huella Segura - Ir al inicio"
+          aria-label="Ir al inicio"
         >
           <LogoHuella />
         </button>
 
-        {/* NAVEGACIÓN */}
 
-        <nav aria-label="Navegación principal">
+        <button
+          className="navbar-toggler menu-huella-boton"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarHuella"
+          aria-controls="navbarHuella"
+          aria-expanded="false"
+          aria-label="Abrir menú"
+        >
+          <span className="menu-huella-texto">
+            MENÚ
+          </span>
 
-          <button
-            type="button"
-            className={
-              pagina === 'inicio' ? 'nav-active' : ''
-            }
-            onClick={() => navegar('inicio')}
-          >
-            Inicio
-          </button>
+          <span className="menu-huella-icono">
+            ☰
+          </span>
+        </button>
 
-          <button
-            type="button"
-            className={`nav-mascota ${
-              pagina === 'mascota'
-                ? 'nav-mascota-active'
-                : ''
-            }`}
-            onClick={() => navegar('mascota')}
-          >
-            <span aria-hidden="true">🐾</span>
-            Mi mascota
-          </button>
 
-          <button
-            type="button"
-            className={
-              pagina === 'diario' ? 'nav-active' : ''
-            }
-            onClick={() => navegar('diario')}
-          >
-            Diario
-          </button>
+        <div
+          className="collapse navbar-collapse"
+          id="navbarHuella"
+        >
 
-          <button
-            type="button"
-            className={
-              pagina === 'primeros' ? 'nav-active' : ''
-            }
-            onClick={() => navegar('primeros')}
-          >
-            Primeros días
-          </button>
+          <nav className="navbar-nav ms-auto menu-huella-panel">
 
-          <button
-            type="button"
-            className={
-              pagina === 'conductas' ? 'nav-active' : ''
-            }
-            onClick={() => navegar('conductas')}
-          >
-            Conductas
-          </button>
+            <button
+              type="button"
+              className={`nav-link ${
+                pagina === 'inicio' ? 'active' : ''
+              }`}
+              onClick={() => navegar('inicio')}
+            >
+              Inicio
+            </button>
 
-          <button
-            type="button"
-            className={
-              pagina === 'alertas' ? 'nav-active' : ''
-            }
-            onClick={() => navegar('alertas')}
-          >
-            Alertas
-          </button>
 
-        </nav>
-      </header>
+            <button
+              type="button"
+              className={`nav-link ${
+                pagina === 'mascota' ? 'active' : ''
+              }`}
+              onClick={() => navegar('mascota')}
+            >
+              Mi mascota
+            </button>
+
+
+            <button
+              type="button"
+              className={`nav-link ${
+                pagina === 'diario' ? 'active' : ''
+              }`}
+              onClick={() => navegar('diario')}
+            >
+              Diario
+            </button>
+
+
+            <button
+              type="button"
+              className={`nav-link ${
+                pagina === 'primeros' ? 'active' : ''
+              }`}
+              onClick={() => navegar('primeros')}
+            >
+              Primeros días
+            </button>
+
+
+            <button
+              type="button"
+              className={`nav-link ${
+                pagina === 'conductas' ? 'active' : ''
+              }`}
+              onClick={() => navegar('conductas')}
+            >
+              Conductas
+            </button>
+
+
+            <button
+              type="button"
+              className={`nav-link ${
+                pagina === 'alertas' ? 'active' : ''
+              }`}
+              onClick={() => navegar('alertas')}
+            >
+              Alertas
+            </button>
+
+          </nav>
+
+        </div>
+
+      </div>
+
+    </header>
 
       {/* =====================================
           CONTENIDO PRINCIPAL
@@ -623,7 +652,70 @@ function App() {
         ) : null}
 
       </main>
-    </div>
+      <footer className="footer-huella">
+        <div className="footer-contenido">
+
+          <div className="footer-columna footer-marca">
+
+            <strong>Huella Segura</strong>
+
+            <span>
+              Acompañando nuevas historias
+            </span>
+
+            <p>
+              Plataforma de apoyo para familias adoptantes
+              durante el proceso de adaptación de sus mascotas.
+            </p>
+
+          </div>
+
+
+          <div className="footer-columna">
+
+            <h3>Fundación colaboradora</h3>
+
+            <p>XXXXX</p>
+
+            <p>
+              Correo: XXXXX
+            </p>
+
+            <p>
+              Instagram: XXXXX
+            </p>
+
+          </div>
+
+
+          <div className="footer-columna">
+            <h3>Contacto</h3>
+            <p>
+              Equipo Huella Segura
+            </p>
+
+            <p>
+              Correo: XXXXX
+            </p>
+
+            <p>
+              Santiago, Chile
+            </p>
+          </div>
+        </div>
+
+        <div className="footer-inferior">
+
+          <p>
+            © 2026 Huella Segura
+          </p>
+
+          <p>
+            Proyecto académico desarrollado por el equipo Huella Segura
+          </p>
+        </div>
+      </footer>
+      </div>
   )
 }
 
