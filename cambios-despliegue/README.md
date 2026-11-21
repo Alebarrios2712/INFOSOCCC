@@ -1,4 +1,4 @@
-# Huella Segura
+# Huella Seguraa
 
 Sitio web de acompañamiento para la adopción responsable de perros y gatos:
 guías de primeros días, lectura de conductas, alertas de emergencia, test
