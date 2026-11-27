@@ -675,14 +675,14 @@ function App() {
 
             <h3>Fundación colaboradora</h3>
 
-            <p>XXXXX</p>
+            <p>PROANI</p>
 
             <p>
-              Correo: XXXXX
+              Correo: proani.sanmiguel@gmail.com
             </p>
 
             <p>
-              Instagram: XXXXX
+              Instagram: @proani
             </p>
 
           </div>
@@ -695,7 +695,7 @@ function App() {
             </p>
 
             <p>
-              Correo: XXXXX
+              Correo: proani.sanmiguel@gmail.com
             </p>
 
             <p>
